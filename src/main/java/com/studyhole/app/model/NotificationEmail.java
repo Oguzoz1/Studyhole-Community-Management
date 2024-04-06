@@ -1,4 +1,4 @@
-package com.studyhole.demo.model;
+package com.studyhole.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NotificationEmail {
     private String subject;
-    private String recipent;
+    private String recipient;
     private String body;
 }

@@ -1,8 +1,8 @@
-package com.studyhole.demo.model.Token;
+package com.studyhole.app.model.Token;
 
 import java.time.Instant;
 
-import com.studyhole.demo.model.User;
+import com.studyhole.app.model.User;
 
 import jakarta.persistence.*;
 import lombok.*;
