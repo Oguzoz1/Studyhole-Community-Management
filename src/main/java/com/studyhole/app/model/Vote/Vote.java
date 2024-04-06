@@ -1,23 +1,29 @@
-package com.example.demo.model;
+package com.studyhole.demo.model.Vote;
+
+import lombok.*;
+
+import com.studyhole.demo.model.User;
+import com.studyhole.demo.model.Post.Post;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.Instant;
+import jakarta.validation.constraints.*;
 
-@Getter
-@Setter
+@Data
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Vote{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentId;
-    private String text;
+    private long voteId;
+    private VoteType voteType;
+
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "postId", referencedColumnName = "postId")
     private Post post;
-    private Instant createdDate;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;

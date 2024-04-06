@@ -1,10 +1,12 @@
-package com.example.demo.model;
+package com.studyhole.demo.model.Post;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
 
-import io.micrometer.common.lang.Nullable;
+import com.studyhole.demo.model.Community;
+import com.studyhole.demo.model.User;
+
 
 @Getter
 @Setter
@@ -18,14 +20,18 @@ public class Post {
     private long postId;
     private String postTitle;
     private String url;
+
     @Lob 
     private String description;
+    @Builder.Default
     private Integer voteCount = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
     private Instant createdData;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "communityId", referencedColumnName = "communityId")
-    private Community community;
+    private Community ownerCommunity;
 }

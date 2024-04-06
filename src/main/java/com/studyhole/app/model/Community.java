@@ -1,7 +1,9 @@
-package com.example.demo.model;
+package com.studyhole.app.model;
 
 import java.time.Instant;
 import java.util.List;
+
+import com.studyhole.app.model.Post.Post;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -21,14 +23,19 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Community {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private long id;
+    private long communityId;
+
     @NotBlank(message = "Community Name is Required")
-    private String _name;
+    private String name;
+
     @NotBlank(message = "Description is required")
-    private String _description;
+    private String description;
+
     @OneToMany(fetch = LAZY)
-    private List<Post> _posts;
-    private Instant _createdDate;
-    @ManyToOne(fetch = LAZY)
-    private User _user;
+    private List<Post> posts;
+    private Instant createdDate;
+
+    //One community can have multiple ownerUser
+    @ManyToMany(fetch = LAZY)
+    private User ownerUser;
 }
