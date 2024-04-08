@@ -2,6 +2,7 @@ package com.studyhole.app.model;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import com.studyhole.app.model.Post.Post;
 
@@ -37,5 +38,5 @@ public class Community {
 
     //One community can have multiple ownerUser
     @ManyToMany(fetch = LAZY)
-    private User ownerUser;
+    private Set<User> ownerUser;
 }

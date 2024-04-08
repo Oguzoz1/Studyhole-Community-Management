@@ -1,4 +1,4 @@
-package com.studyhole.demo.model.Token;
+package com.studyhole.app.model.Token;
 
 import java.time.Instant;
 

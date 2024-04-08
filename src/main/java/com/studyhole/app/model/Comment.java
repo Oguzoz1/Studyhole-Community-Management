@@ -1,10 +1,10 @@
-package com.studyhole.demo.model;
+package com.studyhole.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
 
-import com.studyhole.demo.model.Post.Post;
+import com.studyhole.app.model.Post.Post;
 
 @Getter
 @Setter

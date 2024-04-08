@@ -1,4 +1,4 @@
-package com.studyhole.demo.model;
+package com.studyhole.app.model;
 
 import jakarta.persistence.*;
 import lombok.*;

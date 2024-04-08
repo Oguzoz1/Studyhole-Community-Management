@@ -1,11 +1,11 @@
-package com.studyhole.demo.model.Post;
+package com.studyhole.app.model.Post;
 
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
 
-import com.studyhole.demo.model.Community;
-import com.studyhole.demo.model.User;
+import com.studyhole.app.model.Community;
+import com.studyhole.app.model.User;
 
 
 @Getter

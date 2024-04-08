@@ -1,4 +1,4 @@
-package com.studyhole.demo.model.Vote;
+package com.studyhole.app.model.Vote;
 
 
 import java.util.Arrays;

@@ -1,9 +1,9 @@
-package com.studyhole.demo.model.Vote;
+package com.studyhole.app.model.Vote;
 
 import lombok.*;
 
-import com.studyhole.demo.model.User;
-import com.studyhole.demo.model.Post.Post;
+import com.studyhole.app.model.User;
+import com.studyhole.app.model.Post.Post;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

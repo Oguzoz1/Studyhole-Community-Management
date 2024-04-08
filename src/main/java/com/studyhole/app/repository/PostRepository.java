@@ -11,6 +11,6 @@ import com.studyhole.app.model.Post.Post;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long>{
-    List<Post> findAllByCommunity(Community community);
-    List<User> findByUser(User user);
+    List<Post> findAllByOwnerCommunity(Community community);
+    List<Post> findByUser(User user);
 }
