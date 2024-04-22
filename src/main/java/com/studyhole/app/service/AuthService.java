@@ -1,6 +1,7 @@
 package com.studyhole.app.service;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.hibernate.cfg.Environment;
@@ -25,6 +26,7 @@ public class AuthService {
     //Service
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
+    private final UserService userService; 
 
     //Repos
     private final UserRepository userRepository;
@@ -46,12 +48,11 @@ public class AuthService {
         String token = generateVerificationToken(user);
         String websiteDomain = Environment.getProperties().getProperty("website.domain");
 
-        //Requires a class to hold this instead of locally injecting it
-        mailService.sendMail(new NotificationEmail("Studyhole Account Activision",
-        user.getEmail(), "Hi there :) Thank you for joinin Studyhole to enhance future with us!"
+        NotificationEmail email = new NotificationEmail(user.getEmail(),"Studyhole Account Activision", "Hi there :) Thank you for joinin Studyhole to enhance future with us!"
         + "Please proceed to click the following link to finish activating your account:"
-        +  websiteDomain + "/api/auth/accountVerification/" + token 
-        ));
+        +  "http://localhost:8080/api/auth/verify/" + token);
+
+        mailService.sendMail(email);
     }
 
     private String generateVerificationToken(User user){
@@ -62,5 +63,17 @@ public class AuthService {
 
         vTokenRepository.save(verificationToken);
         return token;
+    }
+    public void verifyWithToken(String token) {
+        Optional<VerificationToken> verificationToken = vTokenRepository.findByToken(token);
+        verificationToken.orElseThrow(() -> new RuntimeException("Invalid or Missing Token"));
+        enableUser(verificationToken.get());
+    }
+
+    @Transactional
+    private void enableUser(VerificationToken token){
+        User user = userService.fetchUser(token.getUser().getUsername());
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }

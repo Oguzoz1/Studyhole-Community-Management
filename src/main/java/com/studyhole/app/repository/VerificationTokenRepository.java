@@ -9,5 +9,5 @@ import com.studyhole.app.model.Token.VerificationToken;
 
 @Repository
 public interface VerificationTokenRepository extends JpaRepository<VerificationToken, Long>{
-    Optional<VerificationTokenRepository> findByToken(String token);
+    Optional<VerificationToken> findByToken(String token);
 }
