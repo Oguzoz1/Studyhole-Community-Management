@@ -5,9 +5,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.hibernate.cfg.Environment;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.studyhole.app.authentication.JwtProvider;
+import com.studyhole.app.data.AuthPackage;
+import com.studyhole.app.data.LoginPackage;
 import com.studyhole.app.data.RegisterPackage;
 import com.studyhole.app.model.NotificationEmail;
 import com.studyhole.app.model.User;
@@ -17,10 +23,12 @@ import com.studyhole.app.repository.VerificationTokenRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class AuthService {
 
     //Service
@@ -31,7 +39,11 @@ public class AuthService {
     //Repos
     private final UserRepository userRepository;
     private final VerificationTokenRepository vTokenRepository;
-    
+
+    //Auth Man
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
+
     public void signup(RegisterPackage registerPackage){
         //User initialization
         User user = new User();
@@ -50,11 +62,11 @@ public class AuthService {
 
         NotificationEmail email = new NotificationEmail(user.getEmail(),"Studyhole Account Activision", "Hi there :) Thank you for joinin Studyhole to enhance future with us!"
         + "Please proceed to click the following link to finish activating your account:"
-        +  "http://localhost:8080/api/auth/verify/" + token);
+        +  websiteDomain+ "/api/auth/verify/" + token);
 
         mailService.sendMail(email);
     }
-
+    //Generates token for account verification
     private String generateVerificationToken(User user){
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
@@ -64,6 +76,7 @@ public class AuthService {
         vTokenRepository.save(verificationToken);
         return token;
     }
+    //Account Verification service
     public void verifyWithToken(String token) {
         Optional<VerificationToken> verificationToken = vTokenRepository.findByToken(token);
         verificationToken.orElseThrow(() -> new RuntimeException("Invalid or Missing Token"));
@@ -72,8 +85,24 @@ public class AuthService {
 
     @Transactional
     private void enableUser(VerificationToken token){
-        User user = userService.fetchUser(token.getUser().getUsername());
+        //Get user from token
+        User user = userService.fetchUserOptional(token.getUser().getUsername()).get();
+        //Enable user
         user.setEnabled(true);
+        //Save user again to the db.
         userRepository.save(user);
+    }
+
+    public AuthPackage login(LoginPackage loginRequest) {
+        //Generate User-Based token
+        UsernamePasswordAuthenticationToken token 
+        = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+        //Get Authentication with the token
+        var auth = authenticationManager.authenticate(token);
+        SecurityContextHolder.getContext().setAuthentication(auth);
+        //Generate user-based token for login
+        String authTok = jwtProvider.generateUserToken(auth);
+        AuthPackage authPackage = new AuthPackage(authTok, loginRequest.getUsername());
+        return authPackage;
     }
 }

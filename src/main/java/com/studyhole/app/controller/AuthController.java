@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studyhole.app.data.AuthPackage;
+import com.studyhole.app.data.LoginPackage;
 import com.studyhole.app.data.RegisterPackage;
 import com.studyhole.app.service.AuthService;
 
@@ -23,6 +25,10 @@ public class AuthController {
     private final AuthService authService;
     // private final RefreshTokenService refreshTokenService;
 
+    //Post is to manipulate
+    //Get is to retrieve data
+
+
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody RegisterPackage registerRequest){
         authService.signup(registerRequest);
@@ -33,5 +39,10 @@ public class AuthController {
     public ResponseEntity<String> verify(@PathVariable String token){
         authService.verifyWithToken(token);
         return new ResponseEntity<>("Account Verification Complete",OK);
+    }
+
+    @PostMapping("/login")
+    public AuthPackage login(@RequestBody LoginPackage loginRequest){
+        return authService.login(loginRequest);
     }
 }

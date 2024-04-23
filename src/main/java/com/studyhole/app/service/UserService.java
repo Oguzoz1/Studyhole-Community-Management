@@ -1,5 +1,8 @@
 package com.studyhole.app.service;
 
+import java.util.Optional;
+
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.studyhole.app.model.User;
@@ -14,10 +17,11 @@ import lombok.AllArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
-
-    public User fetchUser(String username){
-        User user = userRepository.findByUsername(username).
-        orElseThrow(() -> new RuntimeException(username + "does not exist!"));
+    
+    @Transactional
+    public Optional<User> fetchUserOptional(String username){
+        Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username).
+        orElseThrow(() -> new UsernameNotFoundException(username + "does not exist!")));
         return user;
     }
 }
