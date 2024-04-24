@@ -14,5 +14,5 @@ public interface CommunityRepository extends JpaRepository<Community,Long> {
     //There could only be unique name. Name or not
     Optional<Community> findByName(String communityName);
     //There could be multiple owner own multiple communities.
-    List<Community> findByOwnerUser(User ownerUser);
+    List<Community> findByOwnerUsers(User ownerUsers);
 }

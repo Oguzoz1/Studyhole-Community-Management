@@ -37,6 +37,6 @@ public class Community {
     private Instant createdDate;
 
     //One community can have multiple ownerUser
-    @ManyToMany(fetch = LAZY)
-    private Set<User> ownerUser;
+    @ManyToMany(fetch = LAZY, cascade = CascadeType.ALL)
+    private Set<User> ownerUsers;
 }
