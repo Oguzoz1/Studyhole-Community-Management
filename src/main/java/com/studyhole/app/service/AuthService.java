@@ -23,12 +23,10 @@ import com.studyhole.app.repository.VerificationTokenRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
 @Transactional
-@Slf4j
 public class AuthService {
 
     //Service

@@ -13,6 +13,9 @@ import com.studyhole.app.model.User;
 public interface CommunityRepository extends JpaRepository<Community,Long> {
     //There could only be unique name. Name or not
     Optional<Community> findByName(String communityName);
+
+    Optional<Community> findById(Long id);
+
     //There could be multiple owner own multiple communities.
     List<Community> findByOwnerUsers(User ownerUsers);
 }
