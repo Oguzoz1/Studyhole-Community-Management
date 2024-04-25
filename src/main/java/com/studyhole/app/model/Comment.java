@@ -14,7 +14,7 @@ import com.studyhole.app.model.Post.Post;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long commentId;
+    private Long commentId;
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
