@@ -17,7 +17,7 @@ import com.studyhole.app.model.User;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long postId;
+    private Long postId;
     private String postTitle;
     private String url;
 
@@ -29,7 +29,7 @@ public class Post {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
-    private Instant createdData;
+    private Instant createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "communityId", referencedColumnName = "communityId")

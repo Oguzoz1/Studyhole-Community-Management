@@ -6,6 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 
 import com.studyhole.app.model.User;
 import com.studyhole.app.repository.UserRepository;
@@ -32,5 +34,10 @@ public class UserService {
         Jwt principal = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getSubject())
         .orElseThrow(() -> new UsernameNotFoundException("User name not found - " + principal.getSubject()));
+    }
+
+    public boolean isLoggedIn() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }
