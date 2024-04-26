@@ -24,7 +24,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 public class Community {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private long communityId;
+    private Long communityId;
 
     @NotBlank(message = "Community Name is Required")
     private String name;

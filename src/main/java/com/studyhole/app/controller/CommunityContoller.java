@@ -36,6 +36,6 @@ public class CommunityContoller {
 
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPackage> getCommunity(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(id));
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityPackageById(id));
     }
 }

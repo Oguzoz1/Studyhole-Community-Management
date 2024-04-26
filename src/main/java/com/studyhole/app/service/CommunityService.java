@@ -19,9 +19,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CommunityService  {
 
-    private final CommunityRepository communityRepository;
-    private final UserService userService;
     private final CommunityMapper communityMapper;
+    private final CommunityRepository communityRepository;
+    
+    //Services
+    private final UserService userService;
 
     //Do not forget to add transactional to secure consistency (databse related)
     @Transactional
@@ -43,9 +45,36 @@ public class CommunityService  {
         .collect(Collectors.toList());
     }
 
-    public CommunityPackage getCommunity(Long id) {
+    @Transactional
+    public CommunityPackage getCommunityPackageById(Long id) {
         Community com = communityRepository.findById(id)
         .orElseThrow(() -> new RuntimeException("ID NOT FOUND"));
         return communityMapper.mapCommunityPackage(com);
+    }
+
+    @Transactional
+    public CommunityPackage getCommunityPackagebyName(String name){
+        Community com = communityRepository.findByName(name)
+        .orElseThrow(() -> new RuntimeException(name + " NOT FOUND!!"));
+
+        return communityMapper.mapCommunityPackage(com);
+    }
+
+    //Intended for method-use
+    @Transactional
+    public Community getCommunityByName(String name){
+        Community com = communityRepository.findByName(name)
+        .orElseThrow(() -> new RuntimeException(name + " NOT FOUND!!"));
+
+        return com;
+    }
+
+    //Intended for method-use
+    @Transactional
+    public Community getCommunityById(Long id){
+        Community com = communityRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException(id.toString() + "NOT FOUND"));
+
+        return com;
     }
 }

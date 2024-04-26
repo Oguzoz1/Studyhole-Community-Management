@@ -30,6 +30,13 @@ public class UserService {
     }
 
     @Transactional
+    public User getUserbyUsername(String username){
+        User user = (userRepository.findByUsername(username).
+        orElseThrow(() -> new UsernameNotFoundException(username + "does not exist!")));
+        return user;
+    }
+
+    @Transactional
     public User getCurrentUser(){
         Jwt principal = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userRepository.findByUsername(principal.getSubject())

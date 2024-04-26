@@ -31,12 +31,12 @@ public class PostController {
 
     @GetMapping("/{id}")
     public PostResponsePackage getPost(@PathVariable Long id){
-        return postService.getPost(id);
+        return postService.getPostResponsePackagebyId(id);
     }
 
     @GetMapping("/")
     public List<PostResponsePackage> getPosts(String username){
-        return postService.getPosts(username);
+        return postService.getAllPosts(username);
     }
 
     @GetMapping("/community/{id}")
@@ -46,6 +46,6 @@ public class PostController {
 
     @GetMapping("/user/{name}")
     public List<PostResponsePackage> getPostsByUsername(String username){
-        return postService.getPostsByUsername(username);
+        return postService.getPostResponsesPakcagesByUsername(username);
     }
 }
