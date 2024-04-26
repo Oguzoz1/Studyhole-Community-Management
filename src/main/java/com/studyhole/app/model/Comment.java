@@ -5,16 +5,19 @@ import lombok.*;
 import java.time.Instant;
 
 import com.studyhole.app.model.Post.Post;
+import com.studyhole.app.model.Vote.IVoteImpl;
 
 @Getter
 @Setter
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Comment implements IVoteImpl{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
+    @Lob
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -25,4 +28,8 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
+    @Builder.Default
+    private Integer voteCount = 0;
+
 }

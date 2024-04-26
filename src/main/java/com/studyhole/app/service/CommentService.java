@@ -55,4 +55,11 @@ public class CommentService {
         return comments;
     }
     
+    @Transactional
+    public Comment getCommentById(Long id){
+        Comment comment = commentRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("COMMENT NOT FOUND"));
+
+        return comment;
+    }
 }

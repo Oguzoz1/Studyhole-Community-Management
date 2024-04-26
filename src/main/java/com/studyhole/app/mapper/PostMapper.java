@@ -9,10 +9,10 @@ import com.studyhole.app.data.PostResponsePackage;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.model.Post.Post;
-import com.studyhole.app.model.Vote.Vote;
+import com.studyhole.app.model.Vote.VotePost;
 import com.studyhole.app.model.Vote.VoteType;
 import com.studyhole.app.repository.CommentRepository;
-import com.studyhole.app.repository.VoteRepository;
+import com.studyhole.app.repository.VotePostRepository;
 import com.studyhole.app.service.UserService;
 
 import java.util.Optional;
@@ -23,7 +23,7 @@ public abstract class PostMapper {
     @Autowired
     private CommentRepository commentRepository;
     @Autowired
-    private VoteRepository voteRepository;
+    private VotePostRepository voteRepository;
     @Autowired
     private UserService userService;
 
@@ -55,7 +55,7 @@ public abstract class PostMapper {
 
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (userService.isLoggedIn()) {
-            Optional<Vote> voteForPostByUser =
+            Optional<VotePost> voteForPostByUser =
                     voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post,
                     userService.getCurrentUser());
             return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType))

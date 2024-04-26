@@ -6,6 +6,7 @@ import java.time.Instant;
 
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.Vote.IVoteImpl;
 
 
 @Getter
@@ -14,7 +15,7 @@ import com.studyhole.app.model.User;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Post {
+public class Post implements IVoteImpl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postId;

@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.studyhole.app.model.User;
 import com.studyhole.app.model.Post.Post;
-import com.studyhole.app.model.Vote.Vote;
+import com.studyhole.app.model.Vote.VotePost;
 
 @Repository
-public interface VoteRepository extends JpaRepository<Vote,Long>{
-    Optional<Vote> findTopByPostAndUserOrderByVoteIdDesc(Post post, User currentUser);
-    
+public interface VotePostRepository extends JpaRepository<VotePost,Long>{
+    Optional<VotePost> findTopByPostAndUserOrderByVoteIdDesc(Post post, User currentUser);
 }

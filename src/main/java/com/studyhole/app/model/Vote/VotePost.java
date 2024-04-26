@@ -13,7 +13,7 @@ import jakarta.validation.constraints.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vote{
+public class VotePost implements IVote{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long voteId;
