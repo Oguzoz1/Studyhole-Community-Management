@@ -13,7 +13,7 @@ import lombok.*;
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long refreshTokenId;
+    private Long refreshTokenId;
     private String token;
-    private Instant createdData;
+    private Instant createdDate;
 }

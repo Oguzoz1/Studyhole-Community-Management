@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.studyhole.app.authentication.JwtProvider;
 import com.studyhole.app.data.AuthPackage;
 import com.studyhole.app.data.LoginPackage;
+import com.studyhole.app.data.RefreshTokenPackage;
 import com.studyhole.app.data.RegisterPackage;
 import com.studyhole.app.model.NotificationEmail;
 import com.studyhole.app.model.User;
@@ -33,6 +34,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
     private final UserService userService; 
+    private final RefreshTokenService refreshTokenService;
 
     //Repos
     private final UserRepository userRepository;
@@ -100,7 +102,27 @@ public class AuthService {
         SecurityContextHolder.getContext().setAuthentication(auth);
         //Generate user-based token for login
         String authTok = jwtProvider.generateUserToken(auth);
-        AuthPackage authPackage = new AuthPackage(authTok, loginRequest.getUsername());
+
+        AuthPackage authPackage = AuthPackage.builder().authToken(authTok)
+        .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+        .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+        .username(loginRequest.getUsername()).build();
+
         return authPackage;
     }
+
+    public AuthPackage refreshToken(RefreshTokenPackage refreshTokenPackage){
+        refreshTokenService.validateRefreshToken(refreshTokenPackage.getRefreshToken());
+        String token = jwtProvider.generateUserTokenWithUserName(refreshTokenPackage.getUsername());
+
+        AuthPackage authPackage =
+        AuthPackage.builder().authToken(token)
+        .refreshToken(refreshTokenPackage.getRefreshToken())
+        .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+        .username(refreshTokenPackage.getUsername())
+        .build();
+
+        return authPackage;
+    }
+
 }

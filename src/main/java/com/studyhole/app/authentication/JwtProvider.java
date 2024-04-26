@@ -1,6 +1,7 @@
 package com.studyhole.app.authentication;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
@@ -15,6 +16,7 @@ import java.time.Instant;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class JwtProvider {
 
     private final JwtEncoder jwtEncoder;
@@ -28,6 +30,7 @@ public class JwtProvider {
     }
 
     public String generateUserTokenWithUserName(String username) {
+        log.info(jwtExpirationInMillis.toString());
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(Instant.now())

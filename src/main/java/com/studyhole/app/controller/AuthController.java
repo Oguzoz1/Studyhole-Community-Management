@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.studyhole.app.data.AuthPackage;
 import com.studyhole.app.data.LoginPackage;
+import com.studyhole.app.data.RefreshTokenPackage;
 import com.studyhole.app.data.RegisterPackage;
 import com.studyhole.app.service.AuthService;
+import com.studyhole.app.service.RefreshTokenService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -23,7 +26,7 @@ import static org.springframework.http.HttpStatus.OK;
 public class AuthController {
     
     private final AuthService authService;
-    // private final RefreshTokenService refreshTokenService;
+    private final RefreshTokenService refreshTokenService;
 
     //Post is to manipulate
     //Get is to retrieve data
@@ -44,5 +47,16 @@ public class AuthController {
     @PostMapping("/login")
     public AuthPackage login(@RequestBody LoginPackage loginRequest){
         return authService.login(loginRequest);
+    }
+
+    @PostMapping("/refresh/token")
+    public AuthPackage refreshTokens(@Valid @RequestBody RefreshTokenPackage refreshTokenPackage){
+        return authService.refreshToken(refreshTokenPackage);
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenPackage refreshTokenPackage){
+        refreshTokenService.deleteRefreshToken(refreshTokenPackage.getRefreshToken());
+        return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully");
     }
 }
