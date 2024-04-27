@@ -1,6 +1,7 @@
 package com.studyhole.app.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
     
     private final AuthService authService;
@@ -30,7 +32,6 @@ public class AuthController {
 
     //Post is to manipulate
     //Get is to retrieve data
-
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody RegisterPackage registerRequest){

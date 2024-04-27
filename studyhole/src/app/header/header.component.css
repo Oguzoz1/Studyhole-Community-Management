@@ -1,0 +1,48 @@
+header {
+    background-color: #FFF; /* Set background color */
+    padding: 5px; /* Add padding for spacing */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Align items vertically */
+}
+
+.header-content {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space out items */
+    align-items: center; /* Align items vertically */
+}
+
+.logo-container {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically */
+}
+
+.logo-container img {
+    width: 60px; /* Set the width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Add margin for spacing */
+}
+
+.title {
+    font-size: 30px; /* Set the font size of the title */
+    font-weight: bold; /* Make the title bold */
+}
+
+.auth-buttons {
+    display: flex; /* Use flexbox for layout */
+    align-self: flex-end; /* Align to the end of the container */
+}
+
+.button {
+    border: 3px solid black; /* Add black border */
+    font-size: 15px;
+    font-weight: bold;
+    background-color: transparent; /* Transparent background */
+    color: black; /* Black text color */
+    padding: 10px 20px; /* Add padding */
+    margin-left: 10px; /* Add margin for spacing */
+}
+
+.line {
+    border-bottom: 3px solid black; /* Add a border at the bottom */
+    width: 100%; /* Set the width to fill the container */
+}
