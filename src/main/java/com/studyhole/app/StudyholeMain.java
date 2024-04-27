@@ -11,10 +11,10 @@ import com.studyhole.app.config.OpenApiConfig;
 @SpringBootApplication
 @EnableAsync
 @Import(OpenApiConfig.class)
-public class main {
+public class StudyholeMain {
 
 	public static void main(String[] args) {
-		SpringApplication.run(main.class, args);
+		SpringApplication.run(StudyholeMain.class, args);
 	}
 
 }
