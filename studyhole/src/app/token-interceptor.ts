@@ -8,7 +8,7 @@ import { LoginResponse } from './auth/login/login-response.payload';
 @Injectable({
     providedIn: 'root'
 })
-export class TokenInterceptor implements HttpInterceptor {
+export class TokenClassInterceptor implements HttpInterceptor {
 
     isTokenRefreshing = false;
     refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject(null);
