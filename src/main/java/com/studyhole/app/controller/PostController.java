@@ -42,12 +42,12 @@ public class PostController {
     }
 
     @GetMapping("/community/{id}")
-    public List<PostResponsePackage> getPostsByCommunity(Long id){
+    public List<PostResponsePackage> getPostsByCommunity(@PathVariable Long id){
         return postService.getPostsByCommunity(id);
     }
 
-    @GetMapping("/user/{name}")
-    public List<PostResponsePackage> getPostsByUsername(String username){
+    @GetMapping("/user/{username}")
+    public List<PostResponsePackage> getPostsByUsername(@PathVariable String username){
         return postService.getPostResponsesPakcagesByUsername(username);
     }
 }

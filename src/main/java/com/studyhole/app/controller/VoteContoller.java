@@ -32,3 +32,4 @@ public class VoteContoller {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+    
