@@ -38,3 +38,5 @@ src/main/resources/application.properties
 src/main/resources/application.properties
 src/main/resources/app.pub
 src/main/resources/app.key
+src/main/resources/application-prod.properties
+
