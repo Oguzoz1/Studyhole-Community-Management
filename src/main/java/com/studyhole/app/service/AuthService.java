@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.studyhole.app.authentication.JwtProvider;
+import com.studyhole.app.config.AppConfig;
 import com.studyhole.app.data.AuthPackage;
 import com.studyhole.app.data.LoginPackage;
 import com.studyhole.app.data.RefreshTokenPackage;
@@ -43,6 +44,7 @@ public class AuthService {
     //Auth Man
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final AppConfig appConfig;
 
     public void signup(RegisterPackage registerPackage){
         //User initialization
@@ -58,11 +60,10 @@ public class AuthService {
         
         //Token Generation
         String token = generateVerificationToken(user);
-        String websiteDomain = Environment.getProperties().getProperty("website.domain");
 
         NotificationEmail email = new NotificationEmail(user.getEmail(),"Studyhole Account Activision", "Hi there :) Thank you for joinin Studyhole to enhance future with us!"
         + "Please proceed to click the following link to finish activating your account:"
-        +  websiteDomain+ "/api/auth/verify/" + token);
+        +  appConfig.getUrl() + "/api/auth/verify/" + token);
 
         mailService.sendMail(email);
     }

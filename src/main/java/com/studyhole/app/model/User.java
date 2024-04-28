@@ -9,7 +9,7 @@ import java.time.Instant;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table(name = "studyhole_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
