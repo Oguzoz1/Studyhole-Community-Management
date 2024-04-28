@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SignupComponent } from '../auth/signup/signup.component';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { AuthService } from '../auth/shared/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -13,7 +13,8 @@ import { AuthService } from '../auth/shared/auth.service';
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
-    NgIf],
+    NgIf
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -21,7 +22,7 @@ export class HeaderComponent implements OnInit{
   isLoggedIn?: boolean;
   username?: string;
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
     
   }
   ngOnInit() {

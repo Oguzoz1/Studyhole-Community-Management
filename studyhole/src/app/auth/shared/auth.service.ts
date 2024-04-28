@@ -51,7 +51,7 @@ export class AuthService {
         console.error(error);
       }
     });
-    this.localStorage.clear('authenticationToken');
+    this.localStorage.clear('authToken');
     this.localStorage.clear('username');
     this.localStorage.clear('refreshToken');
     this.localStorage.clear('expiresAt');

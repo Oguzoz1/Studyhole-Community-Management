@@ -5,8 +5,6 @@ import { LoginRequestPayload } from './login-request.payload';
 import { AuthService } from '../shared/auth.service';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { throwError } from 'rxjs';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { HeaderComponent } from '../../header/header.component';
 
 @Component({
@@ -46,7 +44,9 @@ export class LoginComponent implements OnInit {
       next: (data) => {
         this.isError = false;
         this.router.navigateByUrl('');
-        this.toastr.success('Login Successful');
+        if(this.authService.isLoggedIn()){
+          this.toastr.success('Login Successful');
+        }
       },
       error: (error) => {
         this.isError = true;

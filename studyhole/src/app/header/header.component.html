@@ -1,12 +1,27 @@
 <header>
-    <div class="header-content">
+    <div class="header-content" routerLink="/">
         <div class="logo-container">
             <img src="https://www.svgrepo.com/show/428085/study-university.svg" alt="Studyhole Logo">
             <span class="title">Studyhole</span>
         </div>
-        <div class="auth-buttons">
-            <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
-            <a routerLink="/login" class="float-right login mr-2">Login</a>
+        <div class="flex-grow-1"></div> <!-- Add an empty flex-grow container to push the following content to the right -->
+        <div class="float-right"> <!-- Align the following content to the right -->
+            <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
+                    <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
+                    <button (click)="logout()" ngbDropdownItem>Logout</button>
+                </div>
+                <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>
+                    <img class="account-icon" src="https://www.redditstatic.com/avatars/avatar_default_08_D4E815.png">
+                    {{username}}
+                </button>
+            </div>            
+        </div>
+        <div class="float-right"> <!-- Align the following content to the right -->
+            <div *ngIf="!isLoggedIn">
+                <a routerLink="/sign-up" class="sign-up mr-2">Sign up</a>
+                <a routerLink="/login" class="login mr-2">Login</a>
+            </div>
         </div>
     </div>
     <div class="line"></div>
