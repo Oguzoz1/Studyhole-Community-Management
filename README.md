@@ -1,3 +1,4 @@
+
 Backend: Spring Boot 3 with Mysql
 Built Tool: Maven
 Frontend: Angular 17
@@ -13,3 +14,5 @@ Screen Shots:
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/af542432-8aed-4974-9cc3-1ce2f9cbea39)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/73a59592-adc4-4dbb-ac3b-4ccf18d18709)
 
+{address}/swagger-ui/index.html#/ => Can access swaggerAPI
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/a055db7e-9900-4535-9ed9-50c565e2bffe)
