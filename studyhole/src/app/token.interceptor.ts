@@ -6,7 +6,8 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const authToken = authService.getJwtToken();
 
-  if (req.url.indexOf('refresh') !== -1 || req.url.indexOf('login') !== -1) {
+  if (req.url.indexOf('refresh') !== -1 || req.url.indexOf('login') !== -1 
+   || req.url.indexOf('signup') !== -1) {
     return next(req);
   }
 

@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.hibernate.cfg.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
