@@ -3,7 +3,9 @@ package com.studyhole.app.service;
 import org.springframework.stereotype.Service;
 
 import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.data.UserPackage;
 import com.studyhole.app.mapper.CommunityMapper;
+import com.studyhole.app.mapper.UserMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.repository.CommunityRepository;
@@ -11,8 +13,12 @@ import com.studyhole.app.repository.CommunityRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,8 +26,8 @@ import java.util.stream.Collectors;
 public class CommunityService  {
 
     private final CommunityMapper communityMapper;
+    private final UserMapper userMapper;
     private final CommunityRepository communityRepository;
-    
     //Services
     private final UserService userService;
 
@@ -38,6 +44,7 @@ public class CommunityService  {
         }
         return communityPackage;
     }
+
 
     @Transactional
     public List<CommunityPackage> getAllCommunities() {
@@ -77,4 +84,14 @@ public class CommunityService  {
 
         return com;
     }
+
+    @Transactional
+    public List<UserPackage> getOwnerUsersByCommunityId(Long id){
+        Community com = getCommunityById(id);
+
+        List<UserPackage> users = new ArrayList<>(com.getOwnerUsers()).stream().map(userMapper::mapToPackage)
+        .collect(toList());
+        return users;
+    }
+
 }

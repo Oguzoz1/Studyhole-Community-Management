@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.data.UserPackage;
 import com.studyhole.app.service.CommunityService;
 
 import lombok.AllArgsConstructor;
@@ -39,5 +40,10 @@ public class CommunityContoller {
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPackage> getCommunity(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityPackageById(id));
+    }
+
+    @GetMapping("/owners/{id}")
+    public ResponseEntity<List<UserPackage>> getOwnerUsers(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getOwnerUsersByCommunityId(id));
     }
 }
