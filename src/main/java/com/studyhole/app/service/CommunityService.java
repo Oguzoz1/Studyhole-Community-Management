@@ -29,7 +29,7 @@ public class CommunityService  {
     @Transactional
     public CommunityPackage save(CommunityPackage communityPackage){
         User userdetails = userService.getCurrentUser();      
-        var save = communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage));
+        var save = communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage,Collections.singleton(userdetails)));
         communityPackage.setCommunityId(save.getCommunityId());
 
         //First time saving a new community.

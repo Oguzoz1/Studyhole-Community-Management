@@ -1,6 +1,7 @@
 package com.studyhole.app.mapper;
 
 import java.util.List;
+import java.util.Set;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -8,6 +9,7 @@ import org.mapstruct.Mapping;
 
 import com.studyhole.app.data.CommunityPackage;
 import com.studyhole.app.model.Community;
+import com.studyhole.app.model.User;
 import com.studyhole.app.model.Post.Post;
 
 @Mapper(componentModel = "spring")
@@ -22,5 +24,6 @@ public interface CommunityMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "posts", ignore = true)
-    Community mapDtoToCommunity(CommunityPackage communityPackage);
+    @Mapping(target = "ownerUsers", source = "ownerUsers")
+    Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
 }
