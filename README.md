@@ -1,4 +1,5 @@
 ## Finished Requirements
+Not all requirements are included but main subjects
 ### Authentication Requirements
 - Registering
 - Sending Verification E-mail (disabled atm)
