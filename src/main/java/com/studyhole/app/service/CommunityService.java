@@ -18,7 +18,6 @@ import static java.util.stream.Collectors.toList;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,7 +78,7 @@ public class CommunityService  {
     //Intended for method-use
     @Transactional
     public Community getCommunityById(Long id){
-        Community com = communityRepository.findById(id)
+        Community com = communityRepository.findByCommunityId(id)
         .orElseThrow(() -> new RuntimeException(id.toString() + "NOT FOUND"));
 
         return com;
@@ -92,6 +91,14 @@ public class CommunityService  {
         List<UserPackage> users = new ArrayList<>(com.getOwnerUsers()).stream().map(userMapper::mapToPackage)
         .collect(toList());
         return users;
+    }
+
+    @Transactional
+    public List<CommunityPackage> getAllCommunitiesByOwnerId(Long id) {
+        User user = userService.getUserByUserId(id);
+
+        return communityRepository.findByOwnerUsers(user).stream().map(communityMapper::mapCommunityPackage)
+        .collect(Collectors.toList());
     }
 
 }

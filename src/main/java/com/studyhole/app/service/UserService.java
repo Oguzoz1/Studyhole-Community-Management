@@ -47,4 +47,11 @@ public class UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
+
+    public User getUserByUserId(Long id) {
+        User user = userRepository.findByUserId(id)
+        .orElseThrow( ()-> new UsernameNotFoundException(id + "does not exist"));
+
+        return user;
+    }
 }
