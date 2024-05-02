@@ -21,4 +21,5 @@ public class CommunityPackage {
     private Integer numberOfPosts;
     private Instant createdDate;
     private Set<User> ownerUsers;
+    private boolean publicCommunity;
 }

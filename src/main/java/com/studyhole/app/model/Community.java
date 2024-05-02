@@ -27,6 +27,7 @@ public class Community {
     private Long communityId;
 
     @NotBlank(message = "Community Name is Required")
+    @Column(nullable = false, unique = true)
     private String name;
 
     @NotBlank(message = "Description is required")
@@ -39,4 +40,6 @@ public class Community {
     //One community can have multiple ownerUser
     @ManyToMany(fetch = LAZY, cascade = CascadeType.ALL)
     private Set<User> ownerUsers;
+
+    private boolean publicCommunity;
 }

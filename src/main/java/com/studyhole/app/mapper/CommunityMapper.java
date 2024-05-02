@@ -16,6 +16,7 @@ import com.studyhole.app.model.Post.Post;
 public interface CommunityMapper {
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(community.getPosts()))")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
+    @Mapping(target = "publicCommunity", source = "community.publicCommunity")
     CommunityPackage mapCommunityPackage(Community community);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
@@ -25,5 +26,6 @@ public interface CommunityMapper {
     @InheritInverseConfiguration
     @Mapping(target = "posts", ignore = true)
     @Mapping(target = "ownerUsers", source = "ownerUsers")
+    @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
 }
