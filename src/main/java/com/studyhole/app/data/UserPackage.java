@@ -1,6 +1,9 @@
 package com.studyhole.app.data;
 
 import java.time.Instant;
+import java.util.List;
+
+import com.studyhole.app.model.Community;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,4 +19,5 @@ public class UserPackage {
     // private String email;
     private Instant created;
     private boolean enabled;
+    private List<Community> subscribedCommunities;
 }

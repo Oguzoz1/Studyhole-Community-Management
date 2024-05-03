@@ -13,5 +13,6 @@ public interface UserMapper {
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "created", source = "user.created")
     @Mapping(target = "enabled", source = "user.enabled")
+    @Mapping(target = "subscribedCommunities", source = "user.subscribedCommunities")
     UserPackage mapToPackage(User user);
 }

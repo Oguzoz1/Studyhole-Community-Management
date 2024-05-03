@@ -17,6 +17,7 @@ public interface CommunityMapper {
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(community.getPosts()))")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "publicCommunity", source = "community.publicCommunity")
+    @Mapping(target = "members", source = "community.members")
     CommunityPackage mapCommunityPackage(Community community);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
@@ -27,5 +28,6 @@ public interface CommunityMapper {
     @Mapping(target = "posts", ignore = true)
     @Mapping(target = "ownerUsers", source = "ownerUsers")
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
+    @Mapping(target = "members", source = "communityPackage.members")
     Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
 }

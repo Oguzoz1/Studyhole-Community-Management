@@ -1,6 +1,7 @@
 package com.studyhole.app.data;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 
 import com.studyhole.app.model.User;
@@ -22,4 +23,5 @@ public class CommunityPackage {
     private Instant createdDate;
     private Set<User> ownerUsers;
     private boolean publicCommunity;
+    private List<User> members;
 }

@@ -12,6 +12,7 @@ import com.studyhole.app.repository.CommunityRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.experimental.Tolerate;
 
 import static java.util.stream.Collectors.toList;
 
@@ -101,4 +102,12 @@ public class CommunityService  {
         .collect(Collectors.toList());
     }
 
+    @Transactional
+    public List<UserPackage> getAllMembersByCommunityId(Long id){
+        Community com = getCommunityById(id);
+
+        List<UserPackage> members =
+        new ArrayList<>(com.getMembers()).stream().map(userMapper::mapToPackage).collect(toList());
+        return members;
+    }
 }

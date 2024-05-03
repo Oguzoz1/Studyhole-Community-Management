@@ -42,4 +42,7 @@ public class Community {
     private Set<User> ownerUsers;
 
     private boolean publicCommunity;
+
+    @ManyToMany(mappedBy = "subscribedCommunities")
+    private List<User> members;
 }

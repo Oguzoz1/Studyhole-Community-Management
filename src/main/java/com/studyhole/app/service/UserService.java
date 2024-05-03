@@ -1,5 +1,9 @@
 package com.studyhole.app.service;
 
+import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
+import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.mapper.CommunityMapper;
 import com.studyhole.app.model.User;
 import com.studyhole.app.repository.UserRepository;
 
@@ -21,6 +27,7 @@ import lombok.AllArgsConstructor;
 public class UserService {
 
     private final UserRepository userRepository;
+    private CommunityMapper communityMapper;
     
     @Transactional
     public Optional<User> fetchUserOptional(String username){
@@ -47,11 +54,22 @@ public class UserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
-
+    @Transactional
     public User getUserByUserId(Long id) {
         User user = userRepository.findByUserId(id)
         .orElseThrow( ()-> new UsernameNotFoundException(id + "does not exist"));
 
         return user;
+    }
+
+    @Transactional
+    public List<CommunityPackage> getSubscribedCommunitiesbyUserId(Long id){
+        User user = getUserByUserId(id);
+
+        List<CommunityPackage> coms =
+        new ArrayList<>(user.getSubscribedCommunities()).stream().map(communityMapper::mapCommunityPackage)
+        .collect(toList());
+
+        return coms;
     }
 }
