@@ -1,11 +1,33 @@
+## Finished Requirements
+Not all requirements are included but main subjects
+### Authentication Requirements
+- Registering
+- Sending Verification E-mail (disabled atm)
+- Login and Login authentication
+- Intercepting requests with authentication to check authorization
+### Community Requirements
+- Community Creation
+- Unique Community Name
+- Private-Public Community
+- Community Ownership
+### Post Requirements
+- Post Creation.
+- Post Upvoting and Downvoting.
+- Commenting on Posts.
+### Home Page Requirements
+- List of lasts posts posted.
+- List of communities.
+- Create Community and Create Post functionalities
+### Profile Settings
+- History of Posts
+- History of Comments
 
+## Features
 Backend: Spring Boot 3 with Mysql
 Built Tool: Maven
 Frontend: Angular 17
-
+### Screen Shots
 Screen shots of functioning APIs.
-
-Screen Shots:
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/6cf80072-6722-4bfb-b67d-c0309be4c3a8)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/86ac5c6d-d2b1-476b-bbdf-6bc63570af56)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/2410a455-c9ed-4277-bd72-757858e9a187)
