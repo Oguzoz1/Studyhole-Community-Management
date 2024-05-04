@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { PostModel } from './post-model';
 import { Observable } from 'rxjs';
 import { CreatePostPayload } from '../post/create-post/create-post.payload';
+import { environment } from '../environment';
 // import { CreatePostPayload } from '../post/create-post/create-post.payload';
 
 @Injectable({
@@ -13,18 +14,18 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
   getAllPosts(): Observable<Array<PostModel>> {
-    return this.http.get<Array<PostModel>>('http://localhost:8080/api/posts/');
+    return this.http.get<Array<PostModel>>(environment.baseUrl + '/api/posts/');
   }
 
   createPost(postPayload: CreatePostPayload): Observable<any> {
-    return this.http.post('http://localhost:8080/api/posts', postPayload);
+    return this.http.post(environment.baseUrl + '/api/posts', postPayload);
   }
 
   getPost(postId: number): Observable<PostModel> {
-    return this.http.get<PostModel>('http://localhost:8080/api/posts/' + postId);
+    return this.http.get<PostModel>(environment.baseUrl + '/api/posts/' + postId);
   }
 
   getAllPostsByUser(name: string): Observable<PostModel[]> {
-    return this.http.get<PostModel[]>('http://localhost:8080/api/posts/user/' + name);
+    return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/user/' + name);
   }
 }

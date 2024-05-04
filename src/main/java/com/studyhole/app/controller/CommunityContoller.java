@@ -51,4 +51,9 @@ public class CommunityContoller {
     public ResponseEntity<List<CommunityPackage>> getAllCommunitiesByOwnerId(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesByOwnerId(id));
     }
+
+    @GetMapping("/members/{id}")
+    public ResponseEntity<List<UserPackage>> getMemberUsers(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllMembersByCommunityId(id));
+    }
 }

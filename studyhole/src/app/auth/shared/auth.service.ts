@@ -5,6 +5,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { map, tap, throwError } from 'rxjs';
 import { LoginResponse } from '../login/login-response.payload';
 import { LoginRequestPayload } from '../login/login-request.payload';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -23,12 +24,12 @@ export class AuthService {
   }
 
   signup(signupRequestPayload: SignupRequestPayload){
-    return this.httpClient.post('http://localhost:8080/api/auth/signup',
+    return this.httpClient.post(environment.baseUrl + '/api/auth/signup',
      signupRequestPayload, {responseType: 'text'})
   }
 
   login(loginRequestPayload: LoginRequestPayload){
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/login',
+    return this.httpClient.post<LoginResponse>(environment.baseUrl + '/api/auth/login',
     loginRequestPayload).pipe(map(data =>{
       this.localStorage.store('authToken', data.authToken);
       this.localStorage.store('username', data.username);
@@ -42,7 +43,7 @@ export class AuthService {
   }
 
   logout() {
-    this.httpClient.post('http://localhost:8080/api/auth/logout', this.refreshTokenPayload, { responseType: 'text' })
+    this.httpClient.post(environment.baseUrl + '/api/auth/logout', this.refreshTokenPayload, { responseType: 'text' })
     .subscribe({
       next: (data) => {
         console.log(data);
@@ -62,7 +63,7 @@ export class AuthService {
   }
 
   refreshToken(){
-    return this.httpClient.post<LoginResponse>('http://localhost:8080/api/auth/refresh/token',this.refreshTokenPayload)
+    return this.httpClient.post<LoginResponse>(environment.baseUrl + '/api/auth/refresh/token',this.refreshTokenPayload)
     .pipe(tap(response => {
       this.localStorage.clear('authToken');
       this.localStorage.clear('expiresAt');
