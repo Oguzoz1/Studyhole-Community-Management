@@ -38,11 +38,11 @@ public class Community {
     private Instant createdDate;
 
     //One community can have multiple ownerUser
-    @ManyToMany(fetch = LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> ownerUsers;
 
     private boolean publicCommunity;
 
-    @ManyToMany(mappedBy = "subscribedCommunities")
+    @ManyToMany(mappedBy = "subscribedCommunities", fetch = FetchType.LAZY)
     private List<User> members;
 }

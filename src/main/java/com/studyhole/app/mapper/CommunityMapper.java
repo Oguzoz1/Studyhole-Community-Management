@@ -30,4 +30,12 @@ public interface CommunityMapper {
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     @Mapping(target = "members", source = "communityPackage.members")
     Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
+
+    @InheritInverseConfiguration
+    @Mapping(target = "posts", ignore = true)
+    @Mapping(target = "ownerUsers", source = "ownerUsers")
+    @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
+    @Mapping(target = "members", source = "communityPackage.members")
+    Community mapDtoToCommunity(CommunityPackage communityPackage);
 }
+

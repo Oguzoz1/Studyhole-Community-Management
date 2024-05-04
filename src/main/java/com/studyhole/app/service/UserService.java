@@ -10,23 +10,29 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.extensions.compactnotation.CompactConstructor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
 import com.studyhole.app.data.CommunityPackage;
 import com.studyhole.app.mapper.CommunityMapper;
+import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.repository.CommunityRepository;
 import com.studyhole.app.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CommunityRepository communityRepository;
     private CommunityMapper communityMapper;
     
     @Transactional
@@ -71,5 +77,20 @@ public class UserService {
         .collect(toList());
 
         return coms;
+    }
+
+    @Transactional
+    public void subscribeUserToCommunity(CommunityPackage comPackage){
+        User user = getCurrentUser();
+        Community com = communityMapper.mapDtoToCommunity(comPackage);
+        if (user.getSubscribedCommunities().stream().anyMatch(c -> c.getCommunityId().equals(com.getCommunityId()))) {
+            log.error("ALREADY EXISTS");
+            return;
+        }
+        com.getMembers().add(user);
+        user.getSubscribedCommunities().add(com);
+    
+        userRepository.save(user);
+        communityRepository.save(com);
     }
 }
