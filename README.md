@@ -6,7 +6,7 @@
 ### Plugins:
 - Maven
 - Lombok (Getter, Setter, Dependency Injection)
-- Mapstruct (Mapping code generation)
+- Mapstruct (Code Generation for Mapping)
 
 ## Finished Requirements
 Not all requirements are included but main subjects
