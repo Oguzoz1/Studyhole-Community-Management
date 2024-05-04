@@ -1,3 +1,13 @@
+## Project Profile
+### Frameworks and Database: 
+- Spring Boot 3
+- Angular 17
+- MySQL
+### Plugins:
+- Maven
+- Lombok (Getter, Setter, Dependency Injection)
+- Mapstruct (Mapping code generation)
+
 ## Finished Requirements
 Not all requirements are included but main subjects
 ### Authentication Requirements
