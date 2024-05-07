@@ -23,8 +23,10 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/comments")
 @CrossOrigin(origins = "*")
+@org.springframework.context.annotation.Lazy
 public class CommentController {
-    private final CommentService commentService;
+
+    private CommentService commentService;
 
     @PostMapping
     public ResponseEntity<Void> createComment(@RequestBody CommentPackage commentPackage){

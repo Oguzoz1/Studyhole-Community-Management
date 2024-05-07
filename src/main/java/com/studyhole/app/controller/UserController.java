@@ -18,6 +18,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/user")
+@org.springframework.context.annotation.Lazy
 public class UserController {
     private final UserService userService;
     private final CommunityService communityService;

@@ -28,6 +28,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 @Transactional
+@org.springframework.context.annotation.Lazy
 public class AuthService {
 
     //Service

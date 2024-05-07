@@ -22,6 +22,7 @@ import org.apache.commons.io.IOUtils;
 @Service
 @AllArgsConstructor
 @NoArgsConstructor
+@org.springframework.context.annotation.Lazy
 public class RSAKeyLoaderService {
 
     @Value("${jwt.public.key}")

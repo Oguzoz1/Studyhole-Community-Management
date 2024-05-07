@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 @Transactional
+@org.springframework.context.annotation.Lazy
 public class RefreshTokenService {
     
     private final RefreshTokenRepository refreshTokenRepository;

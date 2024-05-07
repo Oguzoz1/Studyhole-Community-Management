@@ -22,6 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "*")
+@org.springframework.context.annotation.Lazy
 public class PostController {
     private final PostService postService;
 

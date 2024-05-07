@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@org.springframework.context.annotation.Lazy
 public class CommunityService  {
 
     private final CommunityMapper communityMapper;

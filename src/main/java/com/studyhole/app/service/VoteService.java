@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@org.springframework.context.annotation.Lazy
 public class VoteService {
     
     private final VoteMapper voteMapper;

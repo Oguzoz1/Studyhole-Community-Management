@@ -18,6 +18,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @Transactional
 @AllArgsConstructor
+@org.springframework.context.annotation.Lazy
 public class CommentService {
 
     private final CommentRepository commentRepository;

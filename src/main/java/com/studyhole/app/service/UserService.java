@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @Transactional
 @Slf4j
+@org.springframework.context.annotation.Lazy
 public class UserService {
 
     private final UserRepository userRepository;

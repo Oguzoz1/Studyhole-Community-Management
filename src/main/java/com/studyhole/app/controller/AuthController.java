@@ -25,6 +25,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping("/api/auth")
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
+@org.springframework.context.annotation.Lazy
 public class AuthController {
     
     private final AuthService authService;

@@ -20,6 +20,7 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 @Transactional
+@org.springframework.context.annotation.Lazy
 public class PostService {
 
     private final PostMapper postMapper;

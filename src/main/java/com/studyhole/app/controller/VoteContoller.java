@@ -17,6 +17,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/api/votes")
 @CrossOrigin(origins = "*")
+@org.springframework.context.annotation.Lazy
 public class VoteContoller {
     private final VoteService voteService;
 
