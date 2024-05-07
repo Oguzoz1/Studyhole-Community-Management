@@ -39,7 +39,6 @@ Frontend: Angular 17
 ### Screen Shots
 Screen shots of functioning APIs.
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/6cf80072-6722-4bfb-b67d-c0309be4c3a8)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/86ac5c6d-d2b1-476b-bbdf-6bc63570af56)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/2410a455-c9ed-4277-bd72-757858e9a187)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/ea2a721e-e894-456f-9ab2-d7fcfbbf5025)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/9b62e663-a972-48dd-849b-7474b31a14bf)
