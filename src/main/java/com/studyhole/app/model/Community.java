@@ -4,6 +4,9 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.studyhole.app.model.Post.Post;
 
 import jakarta.persistence.*;
@@ -21,6 +24,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @Entity
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "communityId")
 public class Community {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -42,7 +46,8 @@ public class Community {
     private Set<User> ownerUsers;
 
     private boolean publicCommunity;
-
+    
     @ManyToMany(mappedBy = "subscribedCommunities", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<User> members;
 }
