@@ -20,19 +20,17 @@ import static java.util.stream.Collectors.toList;
 @Service
 @AllArgsConstructor
 @Transactional
-@org.springframework.context.annotation.Lazy
 public class PostService {
 
     private final PostMapper postMapper;
     private final PostRepository postRepository;
     
     //Services
-    private final UserService userService;
-    private final CommunityService communityService;
+    private final StudyholeService studyholeService;
 
     public void save(PostPackage postPackage) {
-        Community com = communityService.getCommunityByName(postPackage.getCommunityName());
-        User currentUser = userService.getCurrentUser();
+        Community com = studyholeService.getCommunityByName(postPackage.getCommunityName());
+        User currentUser = studyholeService.getCurrentUser();
         Post post =  postMapper.map(postPackage, com, currentUser);
         postRepository.save(post);
     }
@@ -44,7 +42,7 @@ public class PostService {
     }
     @Transactional
     public List<PostResponsePackage> getPostsByCommunity(Long id) {
-        Community com = communityService.getCommunityById(id);
+        Community com = studyholeService.getCommunityById(id);
         
         var posts = postRepository.findAllByOwnerCommunity(com).stream()
         .map(postMapper::mapToDto).collect(toList());
@@ -53,7 +51,7 @@ public class PostService {
 
     @Transactional
     public List<PostResponsePackage> getPostResponsesPakcagesByUsername(String username) {
-        User user = userService.getUserbyUsername(username);
+        User user = studyholeService.getUserbyUsername(username);
         var posts = postRepository.findByUser(user).stream().map(postMapper::mapToDto)
         .collect(toList());
         return posts;

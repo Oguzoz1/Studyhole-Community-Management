@@ -16,17 +16,14 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/votes")
-@CrossOrigin(origins = "*")
-@org.springframework.context.annotation.Lazy
+@CrossOrigin
 public class VoteContoller {
     private final VoteService voteService;
-
     @PostMapping("/post")
     public ResponseEntity<Void> votePost(@RequestBody VotePackage votePackage){
         voteService.votePost(votePackage);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
     @PostMapping("/comments")
     public ResponseEntity<Void> voteComment(@RequestBody VotePackage votePackage){
         voteService.voteComment(votePackage);

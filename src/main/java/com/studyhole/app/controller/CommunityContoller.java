@@ -21,43 +21,36 @@ import lombok.AllArgsConstructor;
 @RestController
 @RequestMapping("/api/community")
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
-@org.springframework.context.annotation.Lazy
+@CrossOrigin
 public class CommunityContoller {
 
-    private CommunityService communityService;
+    private final CommunityService communityService;
 
     @PostMapping
     public ResponseEntity<CommunityPackage> createCommunity(@RequestBody CommunityPackage comPackage){
         return ResponseEntity.status(HttpStatus.CREATED)
          .body(communityService.save(comPackage));
     }
-
     @GetMapping
     public ResponseEntity<List<CommunityPackage>> getAllCommunities(){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunities());
     }
-
     @GetMapping("/{id}")
     public ResponseEntity<CommunityPackage> getCommunity(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityPackageById(id));
     }
-
     @GetMapping("/by-post/{id}")
     public ResponseEntity<CommunityPackage> getCommunityByPostId(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityByPostId(id));
     }
-
     @GetMapping("/owners/{id}")
     public ResponseEntity<List<UserPackage>> getOwnerUsers(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getOwnerUsersByCommunityId(id));
     }
-
     @GetMapping("/owned-communities/{id}")
     public ResponseEntity<List<CommunityPackage>> getAllCommunitiesByOwnerId(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesByOwnerId(id));
     }
-
     @GetMapping("/members/{id}")
     public ResponseEntity<List<UserPackage>> getMemberUsers(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllMembersByCommunityId(id));

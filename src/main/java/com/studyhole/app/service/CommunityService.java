@@ -8,11 +8,11 @@ import com.studyhole.app.mapper.CommunityMapper;
 import com.studyhole.app.mapper.UserMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.Post.Post;
 import com.studyhole.app.repository.CommunityRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.experimental.Tolerate;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,19 +23,19 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@org.springframework.context.annotation.Lazy
 public class CommunityService  {
 
     private final CommunityMapper communityMapper;
     private final UserMapper userMapper;
     private final CommunityRepository communityRepository;
-    //Services
-    private final UserService userService;
 
+    //Services
+    private final StudyholeService studyholeService;
+    
     //Do not forget to add transactional to secure consistency (databse related)
     @Transactional
     public CommunityPackage save(CommunityPackage communityPackage){
-        User userdetails = userService.getCurrentUser();      
+        User userdetails = studyholeService.getCurrentUser();      
         var save = communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage,Collections.singleton(userdetails)));
         communityPackage.setCommunityId(save.getCommunityId());
 
@@ -97,12 +97,18 @@ public class CommunityService  {
 
     @Transactional
     public List<CommunityPackage> getAllCommunitiesByOwnerId(Long id) {
-        User user = userService.getUserByUserId(id);
+        User user = studyholeService.getUserByUserId(id);
 
         return communityRepository.findByOwnerUsers(user).stream().map(communityMapper::mapCommunityPackage)
         .collect(Collectors.toList());
     }
 
+    @Transactional
+    public CommunityPackage getCommunityByPostId(Long id){
+        Post post = studyholeService.getPostById(id);
+
+        return communityMapper.mapCommunityPackage(post.getOwnerCommunity());
+    }
     @Transactional
     public List<UserPackage> getAllMembersByCommunityId(Long id){
         Community com = getCommunityById(id);

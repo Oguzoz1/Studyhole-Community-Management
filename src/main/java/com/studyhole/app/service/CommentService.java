@@ -18,20 +18,18 @@ import static java.util.stream.Collectors.toList;
 @Service
 @Transactional
 @AllArgsConstructor
-@org.springframework.context.annotation.Lazy
 public class CommentService {
 
     private final CommentRepository commentRepository;
     private final CommentMapper commentMapper;
     
     //Services
-    private final UserService userService;
-    private final PostService postService;
+    private final StudyholeService studyholeService;
 
     @Transactional
     public void save(CommentPackage commentPackage) {
-        User user = userService.getCurrentUser();
-        Post post = postService.getPostById(commentPackage.getPostId());
+        User user = studyholeService.getCurrentUser();
+        Post post = studyholeService.getPostById(commentPackage.getPostId());
         Comment comment = commentMapper.mapCommentClass(commentPackage, user, post);
         
         commentRepository.save(comment);
@@ -39,7 +37,7 @@ public class CommentService {
 
     @Transactional
     public List<CommentPackage> getAllCommentsForPost(Long postId){
-        Post post = postService.getPostById(postId);
+        Post post = studyholeService.getPostById(postId);
         var comments = commentRepository.findByPost(post)
         .stream().map(commentMapper::mapCommentPackage).collect(toList());
 
@@ -48,7 +46,7 @@ public class CommentService {
 
     @Transactional
     public List<CommentPackage> getAllCommentsForUser(String username){
-        User user = userService.getUserbyUsername(username);
+        User user = studyholeService.getUserbyUsername(username);
         var comments = commentRepository.findByUser(user)
         .stream().map(commentMapper::mapCommentPackage)
         .collect(toList());

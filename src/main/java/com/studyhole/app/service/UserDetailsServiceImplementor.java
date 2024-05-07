@@ -18,7 +18,6 @@ import static java.util.Collections.singletonList;
 
 @Service
 @AllArgsConstructor
-@org.springframework.context.annotation.Lazy
 public class UserDetailsServiceImplementor implements UserDetailsService{
     private UserService userService;
 

@@ -21,32 +21,26 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/posts")
-@CrossOrigin(origins = "*")
-@org.springframework.context.annotation.Lazy
+@CrossOrigin
 public class PostController {
     private final PostService postService;
-
     @PostMapping
     public ResponseEntity<Void> createPost(@RequestBody PostPackage postPackage){
         postService.save(postPackage);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
     @GetMapping("/{id}")
     public PostResponsePackage getPost(@PathVariable Long id){
         return postService.getPostResponsePackagebyId(id);
     }
-
     @GetMapping("/")
     public List<PostResponsePackage> getPosts(String username){
         return postService.getAllPosts(username);
     }
-
     @GetMapping("/community/{id}")
     public List<PostResponsePackage> getPostsByCommunity(@PathVariable Long id){
         return postService.getPostsByCommunity(id);
     }
-
     @GetMapping("/user/{username}")
     public List<PostResponsePackage> getPostsByUsername(@PathVariable String username){
         return postService.getPostResponsesPakcagesByUsername(username);

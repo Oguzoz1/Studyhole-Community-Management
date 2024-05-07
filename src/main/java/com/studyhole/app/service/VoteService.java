@@ -21,7 +21,6 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-@org.springframework.context.annotation.Lazy
 public class VoteService {
     
     private final VoteMapper voteMapper;
@@ -30,14 +29,12 @@ public class VoteService {
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     //Services
-    private final PostService postService;
-    private final CommentService commentService;
-    private final UserService userService;
+    private final StudyholeService studyholeService;
 
     public void votePost(VotePackage votePackage) {
-        Post post = postService.getPostById(votePackage.getId());
+        Post post = studyholeService.getPostById(votePackage.getId());
         Optional<VotePost> voteByPostandUser = votePostRepository.findTopByPostAndUserOrderByVoteIdDesc
-        (post, userService.getCurrentUser());
+        (post, studyholeService.getCurrentUser());
 
         //If vote exists and if existing vote is equal to the "requested" vote
         if(voteByPostandUser.isPresent()
@@ -49,16 +46,16 @@ public class VoteService {
 
         //Save
         VotePost vp = 
-        voteMapper.mapVotePost(votePackage, post, userService.getCurrentUser());
+        voteMapper.mapVotePost(votePackage, post, studyholeService.getCurrentUser());
         
         votePostRepository.save(vp);
         postRepository.save(post);
     }
 
     public void voteComment(VotePackage votePackage) {
-        Comment comment = commentService.getCommentById(votePackage.getId());
+        Comment comment = studyholeService.getCommentById(votePackage.getId());
         Optional<VoteComment> voteByPostandUser = voteCommentRepository.findTopByCommentAndUserOrderByVoteIdDesc
-        (comment, userService.getCurrentUser());
+        (comment, studyholeService.getCurrentUser());
 
         //If vote exists and if existing vote is equal to the "requested" vote
         if(voteByPostandUser.isPresent()
@@ -70,7 +67,7 @@ public class VoteService {
 
         //Save
         VoteComment vc = 
-        voteMapper.mapVoteComment(votePackage, comment, userService.getCurrentUser());
+        voteMapper.mapVoteComment(votePackage, comment, studyholeService.getCurrentUser());
         
         voteCommentRepository.save(vc);
         commentRepository.save(comment);
