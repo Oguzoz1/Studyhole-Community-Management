@@ -1,0 +1,49 @@
+.sidebar-view-community {
+    border: 1px solid black; 
+    padding: 10px; 
+}
+
+.community-profile-header {
+    color: black;
+    font-weight: bold;
+}
+
+.community-profile-description {
+    margin-top: 10px; 
+}
+
+.subscribe-button {
+    background-color: green; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    cursor: pointer;
+}
+
+.subscribe-button:hover {
+    background-color: darkgreen;
+}
+
+.leave-button {
+    background-color: #b70c0c;
+    border-color: #0079D3;
+    color: aliceblue;
+    fill: #0079D3;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    line-height: 24px;
+    text-transform: uppercase;
+    padding: 3px 16px;
+    opacity: 1;
+  }
+  
+  .leave-button:hover {
+    background-color: darkred;
+  }
+  

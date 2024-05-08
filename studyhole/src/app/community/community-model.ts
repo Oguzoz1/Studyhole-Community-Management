@@ -8,4 +8,5 @@ export class CommunityModel{
     numberOfPosts?: number;
     publicCommunity?: boolean;
     ownerUsers?: UserModel[];
+    memberIds?: number[];
 }

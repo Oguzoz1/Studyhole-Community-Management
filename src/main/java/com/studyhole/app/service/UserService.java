@@ -13,7 +13,9 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
 import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.data.UserPackage;
 import com.studyhole.app.mapper.CommunityMapper;
+import com.studyhole.app.mapper.UserMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.repository.CommunityRepository;
@@ -33,6 +35,7 @@ public class UserService {
     private final CommunityRepository communityRepository;
     private final CommunityMapper communityMapper;
     private final StudyholeService studyholeService;
+    private final UserMapper userMapper;
 
     @Transactional
     public Optional<User> fetchUserOptional(String username){
@@ -42,10 +45,18 @@ public class UserService {
     }
 
     @Transactional
-    public User getUserbyUsername(String username){
+    public UserPackage getUserbyUsername(String username){
         User user = (userRepository.findByUsername(username).
         orElseThrow(() -> new UsernameNotFoundException(username + "does not exist!")));
-        return user;
+
+        return userMapper.mapToPackage(user);
+    }
+
+    @Transactional
+    public List<UserPackage> getAllByIdList(List<Long> ids){
+        List<User> users = userRepository.findAllByUserIdIn(ids);
+        return users.stream().map(user -> userMapper.mapToPackage(user))
+        .collect(toList());
     }
 
     @Transactional
@@ -87,6 +98,20 @@ public class UserService {
         com.getMemberIds().add(user.getUserId());
         user.getSubscribedCommunityIds().add(com.getCommunityId());
     
+        userRepository.save(user);
+        communityRepository.save(com);
+    }
+
+    @Transactional
+    public void LeaveFromCommunity(CommunityPackage comPackage){
+        User user = getCurrentUser();
+        Community com = communityMapper.mapDtoToCommunity(comPackage);
+
+        if(com.getMemberIds().contains(user.getUserId())){
+            com.getMemberIds().remove(user.getUserId());
+            user.getSubscribedCommunityIds().remove(com.getCommunityId());
+        }
+
         userRepository.save(user);
         communityRepository.save(com);
     }

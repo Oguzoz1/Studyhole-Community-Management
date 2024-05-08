@@ -6,6 +6,7 @@ import { map, tap, throwError } from 'rxjs';
 import { LoginResponse } from '../login/login-response.payload';
 import { LoginRequestPayload } from '../login/login-request.payload';
 import { environment } from '../../environment';
+import { UserModel } from '../../user/user-model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,7 @@ export class AuthService {
       this.localStorage.store('expiresAt', response.expiresAt);
     }));
   }
+
 
   getUserName() {
     return this.localStorage.retrieve('username');

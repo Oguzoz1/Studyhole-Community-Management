@@ -1,6 +1,7 @@
 <div class="sidebar-view-community">
-    <div style="color: black; font-weight: bold">{{ community?.name }}</div>
-    <hr />
-    <div>{{ community?.description }}</div>
-    <button (click)="subscribeToCommunity()">Subscribe</button>
+    <div class="community-profile-header">{{ community?.name }}</div>
+    <div class="community-profile-description">{{ community?.description }}</div>
+    <button class="subscribe-button" *ngIf="!isSubscribed" (click)="subscribeToCommunity()">Subscribe</button>
+    <button class="leave-button" *ngIf="isSubscribed" (click)="leaveCommunity()">Leave</button>
 </div>
+<app-list-community-members></app-list-community-members>

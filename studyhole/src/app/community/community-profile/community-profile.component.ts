@@ -6,47 +6,56 @@ import { CommunityService } from '../community.service';
 import { CommunityModel } from '../community-model';
 import { UserService } from '../../user/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserModel } from '../../user/user-model';
+import { Observable, forkJoin } from 'rxjs';
+import { ListCommunityMembersComponent } from "../list-community-members/list-community-members.component";
 
 @Component({
-  selector: 'app-community-profile',
-  standalone: true,
-  imports: [
-    NgFor,
-    NgIf,
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    HeaderComponent,
-  ],
-  templateUrl: './community-profile.component.html',
-  styleUrl: './community-profile.component.css'
+    selector: 'app-community-profile',
+    standalone: true,
+    templateUrl: './community-profile.component.html',
+    styleUrl: './community-profile.component.css',
+    imports: [
+        NgFor,
+        NgIf,
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
+        HeaderComponent,
+        ListCommunityMembersComponent
+    ]
 })
 export class CommunityProfileComponent implements OnInit{
 
   communityId: number;
   community?: CommunityModel;
+  currentUser?: UserModel;
+  isSubscribed?: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private comService: CommunityService,
-    private usService: UserService, private toastr: ToastrService
-  ) {
+    private usService: UserService, private toastr: ToastrService) {
       this.communityId = this.activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit(): void {
-    this.getCommunityById();
+    forkJoin({
+      community: this.getCommunityById(),
+      currentUser: this.setCurrentUser()
+
+    }).subscribe(
+      ({community, currentUser}) =>{
+        this.community = community;
+        this.currentUser = currentUser;
+        this.isSubscribed = this.CurrentUserSubscribed();
+        console.log(this.currentUser?.username);
+        console.log(this.isSubscribed);
+      }
+    )
   }
 
   private getCommunityById() {
-    this.comService.getCommunityById(this.communityId).subscribe(
-      {
-        next: (data) => {
-          this.community = data;
-        }, error: (error) => {
-          console.error(error)
-        }
-      }
-    )
+    return this.comService.getCommunityById(this.communityId);
   }
 
   public subscribeToCommunity(){
@@ -54,6 +63,7 @@ export class CommunityProfileComponent implements OnInit{
       {
         next: () => {
           this.toastr.success('Subscribed!')
+          this.isSubscribed = true;
         },
         error: (error) => {
           console.error(error);
@@ -61,5 +71,31 @@ export class CommunityProfileComponent implements OnInit{
         }
       }
     )
+  }
+
+  public leaveCommunity(){
+    this.usService.leaveCommunity(this.communityId).subscribe(
+      {
+        next: () => {
+          this.toastr.success('Left the community!')
+          this.isSubscribed = false;
+        },
+        error: (error) => {
+          console.error(error);
+          this.toastr.error('Something went wrong!')
+        }
+      }
+    )
+  }
+
+  setCurrentUser(): Observable<UserModel>{
+    return this.usService.getCurrentUserPackage();
+  }
+
+  public CurrentUserSubscribed(): boolean{
+    if (this.community?.memberIds?.includes(this.currentUser?.userId!, 0)){
+      return true;
+    }
+    else return false;
   }
 }
