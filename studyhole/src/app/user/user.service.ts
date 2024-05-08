@@ -11,6 +11,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   subscribeCommunity(communityId: number): Observable<void>{
-    return this.http.post<void>(environment.baseUrl + "/api/user/subscribe/" + communityId, null);
+    return this.http.post<void>(environment.baseUrl + '/api/user/subscribe/' + communityId, null);
   }
 }

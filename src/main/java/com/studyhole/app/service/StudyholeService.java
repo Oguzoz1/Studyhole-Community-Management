@@ -1,5 +1,7 @@
 package com.studyhole.app.service;
 
+import java.util.List;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -55,7 +57,11 @@ public class StudyholeService {
 
         return user;
     }
-
+    @Transactional
+    public List<User> getAllUsersByIds(List<Long> ids){
+        List<User> users = userRepository.findAllByUserIdIn(ids);
+        return users;
+    }
     //POST
     @Transactional
     public Post getPostById(Long Id){
@@ -75,6 +81,11 @@ public class StudyholeService {
     }
 
     @Transactional
+    public List<Community> getAllByCommunityIds(List<Long> ids){
+        List<Community> communities = communityRepository.findAllByCommunityIdIn(ids);
+        return communities;
+    }
+    @Transactional
     public Community getCommunityById(Long id){
         Community com = communityRepository.findByCommunityId(id)
         .orElseThrow(() -> new RuntimeException(id.toString() + "NOT FOUND"));
@@ -90,4 +101,6 @@ public class StudyholeService {
 
         return comment;
     }
+
+
 }

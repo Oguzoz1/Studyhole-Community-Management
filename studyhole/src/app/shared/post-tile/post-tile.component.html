@@ -6,7 +6,9 @@
        <!-- Section to Display Post Information-->
     <div class="col-md-11">
         <span class="community-info">
-            <span class="community-text"><a class="posturl" routerLink="">at/{{post.communityName}}</a></span>
+            <span class="community-text">
+                <a class="posturl" (click)="goToCommunity(post.communityName!)">at/{{ post.communityName }}</a>
+              </span>          
             <span>
                 . Posted by 
                 <a class="username" [routerLink]="['/user-profile', post.username]">{{post.username}}</a>

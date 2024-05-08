@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { VoteButtonComponent } from '../vote-button/vote-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from '../../header/header.component';
+import { CommunityService } from '../../community/community.service';
+import { CommunityModel } from '../../community/community-model';
 
 @Component({
   selector: 'app-post-tile',
@@ -26,8 +28,8 @@ export class PostTileComponent implements OnInit {
 
   faComments = faComments;
   @Input() posts?: PostModel[];
-
-  constructor(private router: Router) { }
+  
+  constructor(private router: Router, private comServ: CommunityService) { }
 
   ngOnInit(): void {
   }
@@ -35,4 +37,19 @@ export class PostTileComponent implements OnInit {
   goToPost(id: number): void {
     this.router.navigateByUrl('/view-post/' + id);
   }
+
+  goToCommunity(name: string): void {
+    this.comServ.getCommunityByName(name).subscribe((com: CommunityModel) => {
+      console.log(com.communityId);
+      // Handle Hibernate proxies
+      com.ownerUsers?.forEach(user => {
+        // Access user properties to force initialization
+        console.log(user.username);
+        // Add additional handling as needed
+        this.router.navigateByUrl('view-community/' + com.communityId);
+      });
+  
+    });
+  }
+  
 }

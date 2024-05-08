@@ -8,6 +8,7 @@ import { ViewPostComponent } from './post/view-post/view-post.component';
 import { CreatePostComponent } from './post/create-post/create-post.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { ListCommunitiesComponent } from './community/list-communities/list-communities.component';
+import { ViewCommunityComponent } from './community/view-community/view-community.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -17,5 +18,6 @@ export const routes: Routes = [
     {path: 'user-profile/:name', component: UserProfileComponent},
     {path: 'list-communities', component: ListCommunitiesComponent},
     {path: 'create-post', component: CreatePostComponent},
-    {path: 'create-community', component: CreateCommunityComponent}
+    {path: 'create-community', component: CreateCommunityComponent},
+    {path: 'view-community/:id', component: ViewCommunityComponent},
 ];

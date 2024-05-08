@@ -35,7 +35,12 @@ public class CommunityService  {
     //Do not forget to add transactional to secure consistency (databse related)
     @Transactional
     public CommunityPackage save(CommunityPackage communityPackage){
-        User userdetails = studyholeService.getCurrentUser();      
+        User userdetails = studyholeService.getCurrentUser();
+        if (communityPackage.getMemberIds() == null){
+            communityPackage.setMemberIds(new ArrayList<>());
+        }
+        communityPackage.getMemberIds().add(userdetails.getUserId());
+        
         var save = communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage,Collections.singleton(userdetails)));
         communityPackage.setCommunityId(save.getCommunityId());
 
@@ -70,11 +75,11 @@ public class CommunityService  {
 
     //Intended for method-use
     @Transactional
-    public Community getCommunityByName(String name){
+    public CommunityPackage getCommunityByName(String name){
         Community com = communityRepository.findByName(name)
         .orElseThrow(() -> new RuntimeException(name + " NOT FOUND!!"));
 
-        return com;
+        return communityMapper.mapCommunityPackage(com);
     }
 
     //Intended for method-use
@@ -113,8 +118,12 @@ public class CommunityService  {
     public List<UserPackage> getAllMembersByCommunityId(Long id){
         Community com = getCommunityById(id);
 
-        List<UserPackage> members =
-        new ArrayList<>(com.getMembers()).stream().map(userMapper::mapToPackage).collect(toList());
+        List<User> users = studyholeService.getAllUsersByIds(com.getMemberIds());
+
+        List<UserPackage> members = users.stream()
+        .map(user -> userMapper.mapToPackage(user))
+        .collect(Collectors.toList());
+
         return members;
     }
 }

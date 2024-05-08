@@ -40,3 +40,6 @@
 .post-text{
     margin-top: 10px;
 }
+.community-text{
+    cursor: pointer;
+}

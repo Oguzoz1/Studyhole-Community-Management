@@ -18,4 +18,6 @@ public interface CommunityRepository extends JpaRepository<Community,Long> {
 
     //There could be multiple owner own multiple communities.
     List<Community> findByOwnerUsers(User ownerUsers);
+
+    List<Community> findAllByCommunityIdIn(List<Long> ids);
 }

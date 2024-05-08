@@ -23,5 +23,5 @@ public class CommunityPackage {
     private Instant createdDate;
     private Set<User> ownerUsers;
     private boolean publicCommunity;
-    private List<User> members;
+    private List<Long> memberIds;
 }

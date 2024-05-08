@@ -2,7 +2,6 @@ package com.studyhole.app.service;
 
 import static java.util.stream.Collectors.toList;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +32,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final CommunityRepository communityRepository;
     private final CommunityMapper communityMapper;
-    
+    private final StudyholeService studyholeService;
+
     @Transactional
     public Optional<User> fetchUserOptional(String username){
         Optional<User> user = Optional.ofNullable(userRepository.findByUsername(username).
@@ -70,11 +70,9 @@ public class UserService {
     @Transactional
     public List<CommunityPackage> getSubscribedCommunitiesbyUserId(Long id){
         User user = getUserByUserId(id);
-
-        List<CommunityPackage> coms =
-        new ArrayList<>(user.getSubscribedCommunities()).stream().map(communityMapper::mapCommunityPackage)
+        List<Community> communities = studyholeService.getAllByCommunityIds(user.getSubscribedCommunityIds());
+        List<CommunityPackage> coms = communities.stream().map(com -> communityMapper.mapCommunityPackage(com))
         .collect(toList());
-
         return coms;
     }
 
@@ -82,12 +80,12 @@ public class UserService {
     public void subscribeUserToCommunity(CommunityPackage comPackage){
         User user = getCurrentUser();
         Community com = communityMapper.mapDtoToCommunity(comPackage);
-        if (user.getSubscribedCommunities().stream().anyMatch(c -> c.getCommunityId().equals(com.getCommunityId()))) {
+        if (user.getSubscribedCommunityIds().stream().anyMatch(c -> c.equals(com.getCommunityId()))) {
             log.error("ALREADY EXISTS");
             return;
         }
-        com.getMembers().add(user);
-        user.getSubscribedCommunities().add(com);
+        com.getMemberIds().add(user.getUserId());
+        user.getSubscribedCommunityIds().add(com.getCommunityId());
     
         userRepository.save(user);
         communityRepository.save(com);

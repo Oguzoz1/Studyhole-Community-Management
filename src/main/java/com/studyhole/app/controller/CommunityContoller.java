@@ -39,6 +39,11 @@ public class CommunityContoller {
     public ResponseEntity<CommunityPackage> getCommunity(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityPackageById(id));
     }
+    @GetMapping("/by-name/{communityName}")
+    public ResponseEntity<CommunityPackage> getCommunityByName(@PathVariable String communityName){
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityByName(communityName));
+    }
+
     @GetMapping("/by-post/{id}")
     public ResponseEntity<CommunityPackage> getCommunityByPostId(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunityByPostId(id));

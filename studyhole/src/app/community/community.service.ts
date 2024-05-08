@@ -31,6 +31,10 @@ export class CommunityService {
   }
 
   getCommunityById(communityId: number){
-    return this.http.get<CommunityModel>(environment.baseUrl + '/api/community' + communityId)
+    return this.http.get<CommunityModel>(environment.baseUrl + '/api/community/' + communityId);
+  }
+
+  getCommunityByName(communityName: string){
+    return this.http.get<CommunityModel>(environment.baseUrl + '/api/community/by-name/' + communityName);
   }
 }
