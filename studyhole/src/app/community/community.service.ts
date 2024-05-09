@@ -37,4 +37,8 @@ export class CommunityService {
   getCommunityByName(communityName: string){
     return this.http.get<CommunityModel>(environment.baseUrl + '/api/community/by-name/' + communityName);
   }
+
+  getAllJoinedCommunities(){
+    return this.http.get<CommunityModel[]>(environment.baseUrl + '/api/community/member-communities')
+  }
 }

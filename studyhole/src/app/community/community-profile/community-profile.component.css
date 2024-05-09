@@ -10,6 +10,7 @@
 
 .community-profile-description {
     margin-top: 10px; 
+    font-size: 20px;
 }
 
 .subscribe-button {
@@ -18,10 +19,17 @@
     border: none; 
     padding: 5px 10px; 
     cursor: pointer;
+    width: 120px;
+    height: 40px; 
 }
-
+.community-title{
+    font-size: 50px;
+}
 .subscribe-button:hover {
     background-color: darkgreen;
+    width: 120px;
+    height: 40px; 
+    font-size: 16px; 
 }
 
 .leave-button {
@@ -41,9 +49,60 @@
     text-transform: uppercase;
     padding: 3px 16px;
     opacity: 1;
+    width: 120px;
+    height: 40px; 
+    font-size: 16px; 
   }
   
   .leave-button:hover {
+    width: 120px;
+    height: 40px; 
     background-color: darkred;
   }
-  
+  .sidebar-view-community {
+    position: relative;
+}
+
+.community-profile-image {
+    width: 100px; 
+    height: 100px;
+    background-color: #ccc; 
+    margin-right: 20px;
+}
+.community-profile-details {
+    padding-left: 120px; 
+}
+
+.community-profile-description {
+    font-weight: bold;
+}
+
+.community-profile-buttons {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.sidebar-view-community {
+    position: relative;
+}
+
+.community-details {
+    display: flex;
+    align-items: center; 
+}
+
+.community-profile-image {
+    width: 150px; 
+    height: 150px; 
+    background-color: #ccc; 
+    margin-right: 20px;
+}
+
+.community-profile-info {
+    flex-grow: 1; 
+}
+
+.community-profile-description {
+    font-weight: bold;
+}
+

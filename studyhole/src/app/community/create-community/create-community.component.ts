@@ -13,7 +13,7 @@ import { HeaderComponent } from '../../header/header.component';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
   ],
   templateUrl: './create-community.component.html',
   styleUrl: './create-community.component.css'
@@ -24,22 +24,29 @@ export class CreateCommunityComponent implements OnInit {
   title? = new FormControl('');
   description? = new FormControl('');
   isLoggedIn?: boolean;
+  isPublic: boolean = true; 
 
   constructor(private router: Router, private communityService: CommunityService
     , private authService: AuthService) {
+
     this.createCommunityForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required)
+      description: new FormControl('', Validators.required),
+      isPublic : new FormControl(true)
     });
+
     this.communityModel = {
       name: '',
       description: ''
     }
+
     this.isLoggedIn = authService.isLoggedIn();
 
     if (this.isLoggedIn == false){
       console.error("USER IS NOT LOGGED IN");
     }
+
+
   }
 
   ngOnInit() {
@@ -52,6 +59,7 @@ export class CreateCommunityComponent implements OnInit {
   createCommunity() {
     this.communityModel!.name = this.createCommunityForm?.get('title')?.value;
     this.communityModel!.description = this.createCommunityForm?.get('description')?.value;
+    this.communityModel!.publicCommunity = this.createCommunityForm?.get('isPublic')?.value;
 
     this.communityService.createCommunity(this.communityModel!).subscribe(
       {

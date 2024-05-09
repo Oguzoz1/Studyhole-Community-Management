@@ -9,7 +9,9 @@
           </div>
           <div class="col-md-11">
             <span>
-              <span class="community-text"><a class="post-url" href="">{{post?.communityName}}</a></span>
+                          <span class="community-text">
+                <a class="posturl" (click)="goToCommunity(post?.communityName!)">at/{{ post?.communityName }}</a>
+              </span>      
               <span> . Posted
                 by              
                 <a class="username" href="">{{post?.username}}</a>

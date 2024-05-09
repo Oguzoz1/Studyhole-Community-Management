@@ -25,9 +25,9 @@ import lombok.AllArgsConstructor;
 public class PostController {
     private final PostService postService;
     @PostMapping
-    public ResponseEntity<Void> createPost(@RequestBody PostPackage postPackage){
-        postService.save(postPackage);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<PostResponsePackage> createPost(@RequestBody PostPackage postPackage){
+        PostResponsePackage s = postService.save(postPackage);
+        return ResponseEntity.status(HttpStatus.CREATED).body(s);
     }
     @GetMapping("/{id}")
     public PostResponsePackage getPost(@PathVariable Long id){

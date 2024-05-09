@@ -28,11 +28,13 @@ public class PostService {
     //Services
     private final StudyholeService studyholeService;
 
-    public void save(PostPackage postPackage) {
+    public PostResponsePackage save(PostPackage postPackage) {
         Community com = studyholeService.getCommunityByName(postPackage.getCommunityName());
         User currentUser = studyholeService.getCurrentUser();
         Post post =  postMapper.map(postPackage, com, currentUser);
-        postRepository.save(post);
+        var savePost = postRepository.save(post);
+
+        return postMapper.mapToDto(savePost);
     }
 
     @Transactional

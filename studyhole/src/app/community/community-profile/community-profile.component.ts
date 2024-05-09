@@ -32,7 +32,8 @@ export class CommunityProfileComponent implements OnInit{
   community?: CommunityModel;
   currentUser?: UserModel;
   isSubscribed?: boolean;
-
+  userCount?: number;
+  isPublic?: boolean;
   constructor(private activatedRoute: ActivatedRoute, private comService: CommunityService,
     private usService: UserService, private toastr: ToastrService) {
       this.communityId = this.activatedRoute.snapshot.params['id'];
@@ -48,6 +49,8 @@ export class CommunityProfileComponent implements OnInit{
         this.community = community;
         this.currentUser = currentUser;
         this.isSubscribed = this.CurrentUserSubscribed();
+        this.userCount = this.getUserCount();
+        this.isPublic = community.publicCommunity;
         console.log(this.currentUser?.username);
         console.log(this.isSubscribed);
       }
@@ -87,7 +90,9 @@ export class CommunityProfileComponent implements OnInit{
       }
     )
   }
-
+  getUserCount(): number{
+    return this.community?.memberIds?.length ?? 0;
+  }
   setCurrentUser(): Observable<UserModel>{
     return this.usService.getCurrentUserPackage();
   }
@@ -98,4 +103,9 @@ export class CommunityProfileComponent implements OnInit{
     }
     else return false;
   }
+  
+  applyToCommunity() {
+    throw new Error('Method not implemented.');
+    }
+    
 }

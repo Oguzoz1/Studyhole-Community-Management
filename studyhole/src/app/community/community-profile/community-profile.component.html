@@ -1,7 +1,22 @@
 <div class="sidebar-view-community">
-    <div class="community-profile-header">{{ community?.name }}</div>
-    <div class="community-profile-description">{{ community?.description }}</div>
-    <button class="subscribe-button" *ngIf="!isSubscribed" (click)="subscribeToCommunity()">Subscribe</button>
-    <button class="leave-button" *ngIf="isSubscribed" (click)="leaveCommunity()">Leave</button>
+    <div class="community-details">
+        <div class="community-profile-image"></div> <!-- Add an empty div for the image -->
+        <div class="community-profile-info">
+            <div class="community-title">at/{{ community?.name }}</div>
+            <div class="community-profile-description"><strong>Description:</strong> {{ community?.description }}</div>
+            <div class="community-profile-usercount">Subscribers: {{ userCount }}</div>
+            <div class="community-profile-buttons">
+                <button class="subscribe-button" *ngIf="isPublic && !isSubscribed" (click)="subscribeToCommunity()">Subscribe</button>
+                
+                <button class="leave-button" *ngIf="isSubscribed" (click)="leaveCommunity()">Leave</button>
+                
+                <button class="subscribe-button" *ngIf="!isPublic && !isSubscribed" (click)="applyToCommunity()">Apply</button>
+            </div>
+            
+            <div class="community-profile-public">
+                <div *ngIf="isPublic; else privateContent">Public Community</div>
+                <ng-template #privateContent>Private Community</ng-template>
+            </div>
+        </div>
+    </div>
 </div>
-<app-list-community-members></app-list-community-members>

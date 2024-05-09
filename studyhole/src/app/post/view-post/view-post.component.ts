@@ -10,47 +10,62 @@ import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
 import { NgFor } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
+import { CommunityService } from '../../community/community.service';
+import { CommunityModel } from '../../community/community-model';
 
 @Component({
-  selector: 'app-view-post',
-  standalone: true,
-  imports: [
-    CommunitySideBarComponent,
-    SideBarComponent,
-    ReactiveFormsModule,
-    VoteButtonComponent,
-    NgFor,
-    HeaderComponent
-  ],
-  templateUrl: './view-post.component.html',
-  styleUrl: './view-post.component.css'
+    selector: 'app-view-post',
+    standalone: true,
+    templateUrl: './view-post.component.html',
+    styleUrl: './view-post.component.css',
+    imports: [
+        CommunitySideBarComponent,
+        ReactiveFormsModule,
+        VoteButtonComponent,
+        NgFor,
+        HeaderComponent,
+        SideBarComponent
+    ]
 })
 export class ViewPostComponent implements OnInit {
-
+  
   postId: number;
   post?: PostModel;
   commentForm: FormGroup;
   commentPayload?: CommentPayload;
   comments?: CommentPayload[];
-
+  
   constructor(private postService: PostService, private activateRoute: ActivatedRoute,
-    private commentService: CommentService, private router: Router) {
-    this.postId = this.activateRoute.snapshot.params['id'];
+    private commentService: CommentService, private router: Router, private comServ: CommunityService) {
+      this.postId = this.activateRoute.snapshot.params['id'];
+      
+      this.commentForm = new FormGroup({
+        text: new FormControl('', Validators.required)
+      });
+      this.commentPayload = {
+        text: '',
+        postId: this.postId
+      };
+    }
+    
+    ngOnInit(): void {
+      this.getPostById();
+      this.getCommentsForPost();
+    }
 
-    this.commentForm = new FormGroup({
-      text: new FormControl('', Validators.required)
-    });
-    this.commentPayload = {
-      text: '',
-      postId: this.postId
-    };
-  }
-
-  ngOnInit(): void {
-    this.getPostById();
-    this.getCommentsForPost();
-  }
-
+    goToCommunity(name: string): void {
+      this.comServ.getCommunityByName(name).subscribe((com: CommunityModel) => {
+        console.log(com.communityId);
+        // Handle Hibernate proxies
+        com.ownerUsers?.forEach(user => {
+          // Access user properties to force initialization
+          console.log(user.username);
+          // Add additional handling as needed
+          this.router.navigateByUrl('view-community/' + com.communityId);
+        });
+    
+      });
+    }
   postComment() {
     this.commentPayload!.text = this.commentForm?.get('text')?.value;
 

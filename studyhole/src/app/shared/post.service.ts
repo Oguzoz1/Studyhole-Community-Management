@@ -17,7 +17,7 @@ export class PostService {
     return this.http.get<Array<PostModel>>(environment.baseUrl + '/api/posts/');
   }
 
-  createPost(postPayload: CreatePostPayload): Observable<any> {
+  createPost(postPayload: CreatePostPayload): Observable<PostModel> {
     return this.http.post(environment.baseUrl + '/api/posts', postPayload);
   }
 
@@ -27,5 +27,8 @@ export class PostService {
 
   getAllPostsByUser(name: string): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/user/' + name);
+  }
+  getAllPostsByCommunity(id: number): Observable<PostModel[]> {
+    return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/community/' + id);
   }
 }

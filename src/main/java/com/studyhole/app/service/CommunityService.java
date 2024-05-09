@@ -126,4 +126,12 @@ public class CommunityService  {
 
         return members;
     }
+
+    @Transactional
+    public List<CommunityPackage> getAllCommunitiesByCurrentUserId(){
+        User user = studyholeService.getCurrentUser();
+
+        return communityRepository.findAllByMemberIdsContaining(user.getUserId()).stream().map(communityMapper::mapCommunityPackage)
+        .collect(Collectors.toList());
+    }
 }

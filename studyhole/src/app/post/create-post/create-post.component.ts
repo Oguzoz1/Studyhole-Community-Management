@@ -41,7 +41,7 @@ export class CreatePostComponent implements OnInit {
       communityName: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
     });
-    this.communityService.getAllCommunities().subscribe({
+    this.communityService.getAllJoinedCommunities().subscribe({
       next: (data) => {
         this.communities = data;
       }, error: (error) => {
@@ -58,7 +58,7 @@ export class CreatePostComponent implements OnInit {
     this.postService.createPost(this.postPayload).subscribe(
       {
         next: (data) => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/view-post/' + data.postId);
       }, error: (error) => {
         console.error(error);
       }

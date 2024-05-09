@@ -4,8 +4,8 @@
             <img src="https://www.svgrepo.com/show/428085/study-university.svg" alt="Studyhole Logo">
             <span class="title">Studyhole</span>
         </div>
-        <div class="flex-grow-1"></div> <!-- Add an empty flex-grow container to push the following content to the right -->
-        <div class="float-right"> <!-- Align the following content to the right -->
+        <div class="flex-grow-1"></div> 
+        <div class="float-right"> 
             <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
                     <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
@@ -17,7 +17,7 @@
                 </button>
             </div>            
         </div>
-        <div class="float-right"> <!-- Align the following content to the right -->
+        <div class="float-right"> 
             <div *ngIf="!isLoggedIn">
                 <a routerLink="/sign-up" class="sign-up mr-2">Sign up</a>
                 <a routerLink="/login" class="login mr-2">Login</a>

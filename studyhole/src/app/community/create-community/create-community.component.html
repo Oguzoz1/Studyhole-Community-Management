@@ -10,6 +10,10 @@
               placeholder="Title">
             <textarea type="text" [formControlName]="'description'" style="width: 100%; margin-top: 5px"
               placeholder="Description"></textarea>
+              <div style="margin-top: 5px;">
+                <label for="isPublic">Public:</label>
+                <input type="checkbox" id="isPublic" formControlName="isPublic">
+            </div>
             <div>
               <div style="margin-top: 5px" class="float-right">
                 <button (click)="discard()" class="btnDiscard">Discard</button>
@@ -24,12 +28,6 @@
           <h5 class="guidelines">Posting to Studyhole</h5>
           <hr />
           <ul>
-            <!-- <li>Remember the human</li>
-            <hr />
-            <li>Behave like you would in real life</li>
-            <hr />
-            <li>Don't spam</li>
-            <hr /> -->
             PLACEHOLDER -> MUST BE DESIGNABLE BY USERS
           </ul>
         </div>
