@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.studyhole.app.data.CommunityPackage;
 import com.studyhole.app.data.ImagePackage;
 import com.studyhole.app.data.UserPackage;
-import com.studyhole.app.model.DataTypes.Image;
 import com.studyhole.app.service.CommunityService;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +39,12 @@ public class CommunityContoller {
     public ResponseEntity<CommunityPackage> createCommunity(@RequestBody CommunityPackage comPackage){
         return ResponseEntity.status(HttpStatus.CREATED)
          .body(communityService.save(comPackage));
+    }
+    @PostMapping("/update")
+    public ResponseEntity<CommunityPackage> updateCommunity(@RequestBody CommunityPackage comPackage){
+        log.info("Update initiated");
+        return ResponseEntity.status(HttpStatus.CREATED)
+         .body(communityService.update(comPackage));
     }
     @PostMapping("/upload-image/{id}")
     public ResponseEntity<Void> uploadImage(@RequestBody MultipartFile file, @PathVariable Long id) throws IOException{

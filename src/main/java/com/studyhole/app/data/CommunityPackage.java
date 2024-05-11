@@ -26,4 +26,5 @@ public class CommunityPackage {
     private boolean publicCommunity;
     private List<Long> memberIds;
     private Image image;
+    private String guidelines;
 }

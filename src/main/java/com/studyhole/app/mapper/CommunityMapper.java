@@ -19,6 +19,7 @@ public interface CommunityMapper {
     @Mapping(target = "publicCommunity", source = "community.publicCommunity")
     @Mapping(target = "memberIds", source = "community.memberIds")
     @Mapping(target = "image", source = "community.communityImage")
+    @Mapping(target = "guidelines", source = "community.guidelines")
     CommunityPackage mapCommunityPackage(Community community);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
@@ -31,6 +32,7 @@ public interface CommunityMapper {
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     @Mapping(target = "memberIds", source = "communityPackage.memberIds")
     @Mapping(target = "communityImage", source = "communityPackage.image")
+    @Mapping(target = "guidelines", source = "communityPackage.guidelines")
     Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
 
     @InheritInverseConfiguration
@@ -39,6 +41,7 @@ public interface CommunityMapper {
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     @Mapping(target = "memberIds", source = "communityPackage.memberIds")
     @Mapping(target = "communityImage", source = "communityPackage.image")
+    @Mapping(target = "guidelines", source = "communityPackage.guidelines")
     Community mapDtoToCommunity(CommunityPackage communityPackage);
 }
 

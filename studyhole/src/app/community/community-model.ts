@@ -11,4 +11,5 @@ export class CommunityModel{
     ownerUsers?: UserModel[];
     memberIds?: number[];
     image?: ImageModel;
+    guidelines?: string;
 }

@@ -22,6 +22,10 @@ export class CommunityService {
     return this.http.post<CommunityModel>(environment.baseUrl + '/api/community',
       communityModel);
   }
+  updateCommunity(communityModel: CommunityModel): Observable<CommunityModel>{
+    return this.http.post<CommunityModel>(environment.baseUrl + '/api/community/update',
+    communityModel);
+  }
   getOwnerUsers(communityId: number){
     return this.http.get<UserModel[]>(environment.baseUrl + '/api/community/owners/' + communityId);
   }

@@ -63,6 +63,11 @@ public class CommunityService  {
         return communityPackage;
     }
 
+    @Transactional
+    public CommunityPackage update(CommunityPackage communityPackage){
+        communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage));
+        return communityPackage;
+    }
 
     @Transactional
     public List<CommunityPackage> getAllCommunities() {

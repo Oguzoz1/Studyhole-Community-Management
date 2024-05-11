@@ -34,6 +34,8 @@ public class Community {
     @NotBlank(message = "Description is required")
     private String description;
 
+    private String guidelines;
+
     @OneToMany(fetch = LAZY)
     private List<Post> posts;
     private Instant createdDate;
