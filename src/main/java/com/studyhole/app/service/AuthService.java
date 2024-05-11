@@ -53,7 +53,6 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerPackage.getPassword()));
         user.setCreated(Instant.now());
         user.setEnabled(true);
-
         //Repository extends thus it saves.
         userRepository.save(user);
         

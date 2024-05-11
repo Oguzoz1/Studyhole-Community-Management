@@ -1,33 +1,45 @@
 package com.studyhole.app.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.cfg.ContextAttributes.Impl;
 import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.data.ImagePackage;
 import com.studyhole.app.data.UserPackage;
 import com.studyhole.app.mapper.CommunityMapper;
+import com.studyhole.app.mapper.ImageMapper;
 import com.studyhole.app.mapper.UserMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.DataTypes.Image;
 import com.studyhole.app.model.Post.Post;
 import com.studyhole.app.repository.CommunityRepository;
+import com.studyhole.app.repository.ImageRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import static java.util.stream.Collectors.toList;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.zip.DataFormatException;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CommunityService  {
 
     private final CommunityMapper communityMapper;
     private final UserMapper userMapper;
     private final CommunityRepository communityRepository;
+    private final ImageRepository imageRepository;
+    private final ImageMapper imageMapper;
 
     //Services
     private final StudyholeService studyholeService;
@@ -133,5 +145,28 @@ public class CommunityService  {
 
         return communityRepository.findAllByMemberIdsContaining(user.getUserId()).stream().map(communityMapper::mapCommunityPackage)
         .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public String uploadImageToCommunity(Long communityId,MultipartFile  file) throws IOException {
+        Community com = getCommunityById(communityId);
+        byte[] imageData = ImageUtils.compressImage(file.getBytes());
+        Image image = Image.builder().imageData(imageData)
+        .build();
+        Image im = imageRepository.save(image);
+
+        com.setCommunityImage(im);
+        communityRepository.save(com);
+
+        return " 'uploaded'";
+    }
+
+    @Transactional
+    public ImagePackage getCommunityImage(Long communityId) throws IOException, DataFormatException{
+        Community com = getCommunityById(communityId);
+        ImagePackage imPack =  imageMapper.mapToPackage(com.getCommunityImage());
+        imPack.setImageData(ImageUtils.decompressImage(imPack.getImageData()));
+
+        return imPack;
     }
 }

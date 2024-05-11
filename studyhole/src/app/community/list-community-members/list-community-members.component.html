@@ -1,14 +1,9 @@
-<div class="container">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="box">
-          <h2 class="list-heading">List of Members</h2> 
-          <ul class="member-list">
-            <li *ngFor="let member of members">
-              <a routerLink="/user-profile/{{member.username}}">{{member.username}}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="community-guidelines-box">
+    <div class="title">List of Members</div>
+    <hr>
+    <ul class="member-list">
+      <li *ngFor="let member of members">
+        <a routerLink="/user-profile/{{member.username}}">{{member.username}}</a>
+      </li>
+    </ul>
+</div>

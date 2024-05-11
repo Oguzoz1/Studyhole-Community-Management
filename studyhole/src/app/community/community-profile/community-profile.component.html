@@ -1,7 +1,14 @@
 <div class="sidebar-view-community">
     <div class="community-details">
-        <div class="community-profile-image"></div> <!-- Add an empty div for the image -->
+        <div class="community-profile-image"><app-image></app-image></div> 
         <div class="community-profile-info">
+            <div class="top-right">
+                <button class="settings-button" *ngIf="isOwnerUser()" (click)="toggleSettings()">Settings</button>
+                <div class="community-upload" *ngIf="showUploadButtons">
+                    <app-image-upload-component [communityModel]="community"></app-image-upload-component>
+                </div>
+            </div>
+            
             <div class="community-title">at/{{ community?.name }}</div>
             <div class="community-profile-description"><strong>Description:</strong> {{ community?.description }}</div>
             <div class="community-profile-usercount">Subscribers: {{ userCount }}</div>

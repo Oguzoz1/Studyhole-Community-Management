@@ -1,0 +1,6 @@
+<div class="community-guidelines-box">
+    <div class="title">Community Guidelines</div>
+    <hr>
+    <div class="content" [contentEditable]="isEditMode" [innerText]="guidelinesContent"></div>
+    <button (click)="toggleEditMode()" class="edit-button">{{ isEditMode ? 'Save' : 'Edit' }}</button>
+</div>

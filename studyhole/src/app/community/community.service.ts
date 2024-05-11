@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CommunityModel } from './community-model';
 import { UserModel } from '../user/user-model';
 import { environment } from '../environment';
+import { ImageModel } from '../shared/image-upload-service';
 
 
 @Injectable({
@@ -21,7 +22,6 @@ export class CommunityService {
     return this.http.post<CommunityModel>(environment.baseUrl + '/api/community',
       communityModel);
   }
-
   getOwnerUsers(communityId: number){
     return this.http.get<UserModel[]>(environment.baseUrl + '/api/community/owners/' + communityId);
   }
@@ -29,7 +29,9 @@ export class CommunityService {
   getMemberUsers(communityId: number){
     return this.http.get<UserModel[]>(environment.baseUrl + '/api/community/members/' + communityId);
   }
-
+  getCommunityImage(communityId: number){
+    return this.http.get<ImageModel>(environment.baseUrl + '/api/community/image/' + communityId);
+  }
   getCommunityById(communityId: number){
     return this.http.get<CommunityModel>(environment.baseUrl + '/api/community/' + communityId);
   }

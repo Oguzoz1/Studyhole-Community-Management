@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.DataTypes.Image;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,4 +25,5 @@ public class CommunityPackage {
     private Set<User> ownerUsers;
     private boolean publicCommunity;
     private List<Long> memberIds;
+    private Image image;
 }

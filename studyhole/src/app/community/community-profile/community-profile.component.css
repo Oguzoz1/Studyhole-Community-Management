@@ -106,3 +106,9 @@
     font-weight: bold;
 }
 
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+}

@@ -9,6 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { UserModel } from '../../user/user-model';
 import { Observable, forkJoin } from 'rxjs';
 import { ListCommunityMembersComponent } from "../list-community-members/list-community-members.component";
+import { ImageUploadComponentComponent } from '../../shared/image-upload-component/image-upload-component.component';
+import { ImageComponent } from "../../shared/image/image.component";
+import { ImageModel } from '../../shared/image-upload-service';
 
 @Component({
     selector: 'app-community-profile',
@@ -23,7 +26,9 @@ import { ListCommunityMembersComponent } from "../list-community-members/list-co
         RouterLink,
         RouterLinkActive,
         HeaderComponent,
-        ListCommunityMembersComponent
+        ListCommunityMembersComponent,
+        ImageUploadComponentComponent,
+        ImageComponent
     ]
 })
 export class CommunityProfileComponent implements OnInit{
@@ -34,6 +39,10 @@ export class CommunityProfileComponent implements OnInit{
   isSubscribed?: boolean;
   userCount?: number;
   isPublic?: boolean;
+  communityImage?: ImageModel;
+
+  showUploadButtons: boolean = false;
+
   constructor(private activatedRoute: ActivatedRoute, private comService: CommunityService,
     private usService: UserService, private toastr: ToastrService) {
       this.communityId = this.activatedRoute.snapshot.params['id'];
@@ -42,7 +51,7 @@ export class CommunityProfileComponent implements OnInit{
   ngOnInit(): void {
     forkJoin({
       community: this.getCommunityById(),
-      currentUser: this.setCurrentUser()
+      currentUser: this.setCurrentUser(),
 
     }).subscribe(
       ({community, currentUser}) =>{
@@ -90,8 +99,16 @@ export class CommunityProfileComponent implements OnInit{
       }
     )
   }
+  isOwnerUser(): boolean{
+    if (this.community?.ownerUsers?.some(ownerUser => ownerUser.userId == this.currentUser?.userId!))
+      return true
+    else return false
+  }
   getUserCount(): number{
     return this.community?.memberIds?.length ?? 0;
+  }
+  getCommunityImage() : Observable<ImageModel>{
+    return this.comService.getCommunityImage(this.communityId);
   }
   setCurrentUser(): Observable<UserModel>{
     return this.usService.getCurrentUserPackage();
@@ -107,5 +124,8 @@ export class CommunityProfileComponent implements OnInit{
   applyToCommunity() {
     throw new Error('Method not implemented.');
     }
-    
+
+    toggleSettings() {
+      this.showUploadButtons = !this.showUploadButtons;
+  }
 }

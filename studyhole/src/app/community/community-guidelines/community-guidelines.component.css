@@ -1,0 +1,25 @@
+.community-guidelines-box {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.content {
+    margin-bottom: 10px;
+    min-height: 100px; /* Adjust as needed */
+}
+
+.edit-button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

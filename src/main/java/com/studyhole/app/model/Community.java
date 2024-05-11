@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 
+import com.studyhole.app.model.DataTypes.Image;
 import com.studyhole.app.model.Post.Post;
 
 import jakarta.persistence.*;
@@ -47,4 +48,7 @@ public class Community {
     @CollectionTable(name = "community_members")
     @Column(name = "user_id")
     private List<Long> memberIds;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private Image communityImage;
 }

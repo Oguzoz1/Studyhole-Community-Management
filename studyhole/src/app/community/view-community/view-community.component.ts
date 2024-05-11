@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { SideBarComponent } from "../../shared/side-bar/side-bar.component";
 import { ListCommunityMembersComponent } from "../list-community-members/list-community-members.component";
+import { CommunityGuidelinesComponent } from "../community-guidelines/community-guidelines.component";
 
 @Component({
     selector: 'app-view-community',
@@ -30,7 +31,8 @@ import { ListCommunityMembersComponent } from "../list-community-members/list-co
         VoteButtonComponent,
         FontAwesomeModule,
         SideBarComponent,
-        ListCommunityMembersComponent
+        ListCommunityMembersComponent,
+        CommunityGuidelinesComponent
     ]
 })
 export class ViewCommunityComponent implements OnInit {
