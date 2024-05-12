@@ -1,6 +1,6 @@
 .resized-image {
-    width: 150px; /* Set width to 100px */
-    height: 150px; /* Set height to 100px */
-    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    width: 150px;
+    height: 150px;
+    object-fit: cover; 
   }
   

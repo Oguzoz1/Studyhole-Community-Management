@@ -4,20 +4,25 @@ import { CommentPayload } from '../../comment/comment.payload';
 import { CommentService } from '../../comment/comment.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../shared/post.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { PostTileComponent } from '../../shared/post-tile/post-tile.component';
 import { HeaderComponent } from '../../header/header.component';
+import { FormsModule } from '@angular/forms';
+import { SideBarComponent } from "../../shared/side-bar/side-bar.component";
 
 @Component({
-  selector: 'app-user-profile',
-  standalone: true,
-  imports: [
-    HeaderComponent,
-    PostTileComponent,
-    NgFor
-  ],
-  templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css'
+    selector: 'app-user-profile',
+    standalone: true,
+    templateUrl: './user-profile.component.html',
+    styleUrl: './user-profile.component.css',
+    imports: [
+        HeaderComponent,
+        PostTileComponent,
+        NgFor,
+        FormsModule,
+        NgIf,
+        SideBarComponent
+    ]
 })
 export class UserProfileComponent implements OnInit {
   name: string;
@@ -25,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   comments?: CommentPayload[];
   postLength?: number;
   commentLength?: number;
+  selectedOption: string = 'posts'; 
 
   constructor(private activatedRoute: ActivatedRoute, private postService: PostService,
     private commentService: CommentService) {

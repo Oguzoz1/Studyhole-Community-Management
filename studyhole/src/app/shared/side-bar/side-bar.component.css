@@ -34,7 +34,10 @@
     width: 288px;
     height: 34px;
 }
-
+.sidebar-upper {
+    height: 50%; 
+    overflow: hidden; 
+}
 .btnCreateCommunity{
     margin-top: 5px;
     color: #0079D3;

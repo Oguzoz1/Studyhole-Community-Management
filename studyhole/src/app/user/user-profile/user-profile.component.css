@@ -1,0 +1,52 @@
+.profile-container {
+    border: 1px solid black;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  .title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    width: 50%; 
+  }
+  
+  .user-info-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px; 
+  }
+  
+  .dropdown {
+    margin-bottom: 10px; 
+  }
+  
+  .content {
+    margin-bottom: 10px; 
+  }
+  .profile-container {
+    display: flex;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+  }
+  
+  .content {
+    display: flex;
+    flex: 1; 
+  }
+  
+  .main-content {
+    flex: 1; 
+  }
+  
+  .sidebar {
+    width: 300px; 
+  }
+  
