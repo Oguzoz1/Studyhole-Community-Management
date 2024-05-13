@@ -5,7 +5,7 @@ import { PostService } from '../../shared/post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentPayload } from '../../comment/comment.payload';
 import { CommentService } from '../../comment/comment.service';
-import { CommunitySideBarComponent } from '../../shared/community-side-bar/community-side-bar.component';
+import { CommunitySideBarComponent } from '../../community/community-side-bar/community-side-bar.component';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
 import { NgFor } from '@angular/common';

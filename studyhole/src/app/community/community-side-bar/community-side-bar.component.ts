@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommunityModel } from '../../community/community-model';
-import { CommunityService } from '../../community/community.service';
+import { CommunityModel } from '../community-model';
+import { CommunityService } from '../community.service';
 import { CommonModule, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 

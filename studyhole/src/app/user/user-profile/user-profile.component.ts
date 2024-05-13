@@ -5,7 +5,7 @@ import { CommentService } from '../../comment/comment.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../shared/post.service';
 import { NgFor, NgIf } from '@angular/common';
-import { PostTileComponent } from '../../shared/post-tile/post-tile.component';
+import { PostTileComponent } from '../../post/post-tile/post-tile.component';
 import { HeaderComponent } from '../../header/header.component';
 import { FormsModule } from '@angular/forms';
 import { SideBarComponent } from "../../shared/side-bar/side-bar.component";

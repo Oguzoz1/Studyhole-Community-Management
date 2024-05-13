@@ -7,9 +7,9 @@ import { LoginComponent } from '../auth/login/login.component';
 import { SideBarComponent } from '../shared/side-bar/side-bar.component';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { PostTileComponent } from '../shared/post-tile/post-tile.component';
+import { PostTileComponent } from '../post/post-tile/post-tile.component';
 import { AuthService } from '../auth/shared/auth.service';
-import { CommunitySideBarComponent } from '../shared/community-side-bar/community-side-bar.component';
+import { CommunitySideBarComponent } from '../community/community-side-bar/community-side-bar.component';
 
 @Component({
   selector: 'app-home',

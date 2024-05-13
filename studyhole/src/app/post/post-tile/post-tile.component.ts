@@ -1,9 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
-import { PostModel } from '../post-model';
+import { PostModel } from '../../shared/post-model';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { VoteButtonComponent } from '../vote-button/vote-button.component';
+import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from '../../header/header.component';
 import { CommunityService } from '../../community/community.service';
@@ -32,6 +32,7 @@ export class PostTileComponent implements OnInit {
   constructor(private router: Router, private comServ: CommunityService) { }
 
   ngOnInit(): void {
+    this.posts?.reverse();
   }
 
   goToPost(id: number): void {
