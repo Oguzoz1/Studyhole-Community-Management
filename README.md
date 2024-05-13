@@ -39,13 +39,11 @@ Backend: Spring Boot 3 with Mysql
 Built Tool: Maven
 Frontend: Angular 17
 ### Screen Shots
-Screen shots of functioning APIs.
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/6cf80072-6722-4bfb-b67d-c0309be4c3a8)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/2410a455-c9ed-4277-bd72-757858e9a187)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/ea2a721e-e894-456f-9ab2-d7fcfbbf5025)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/9b62e663-a972-48dd-849b-7474b31a14bf)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/af542432-8aed-4974-9cc3-1ce2f9cbea39)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/73a59592-adc4-4dbb-ac3b-4ccf18d18709)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/c19376b3-637c-4e7f-bd90-3354387b8cf0)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/af7703d9-988d-42bc-a9a1-9be0b6d8b875)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/ba969440-8d85-4d98-adb2-dc7879757a51)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/04ca23fb-b463-4ee6-aaf3-f18026d8a642)
+
 
 {address}/swagger-ui/index.html#/ => Can access swaggerAPI
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/a055db7e-9900-4535-9ed9-50c565e2bffe)
