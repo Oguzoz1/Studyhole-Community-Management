@@ -20,6 +20,8 @@ Not all requirements are included but main subjects
 - Unique Community Name
 - Private-Public Community
 - Community Ownership
+- Community Guidelines (Edit/Save)
+- Community Picture, Memberlist, Member count
 ### Post Requirements
 - Post Creation.
 - Post Upvoting and Downvoting.
