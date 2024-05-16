@@ -13,6 +13,7 @@ public class PostPackage {
     private Long postId;
     @NotBlank(message = "Post Title can not be empty or null")
     private String postTitle;
-    private String description;
+    @NotBlank(message = "Template can not be blank")
+    private Long postTemplateId;
     private String url;
 }

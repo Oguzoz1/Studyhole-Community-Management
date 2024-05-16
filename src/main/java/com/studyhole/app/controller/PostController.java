@@ -14,14 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.studyhole.app.data.PostPackage;
 import com.studyhole.app.data.PostResponsePackage;
+import com.studyhole.app.data.PostTemplatePackage;
 import com.studyhole.app.service.PostService;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/posts")
 @CrossOrigin
+@Slf4j
 public class PostController {
     private final PostService postService;
     @PostMapping
@@ -29,6 +32,15 @@ public class PostController {
         PostResponsePackage s = postService.save(postPackage);
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
     }
+
+    @PostMapping("/template/{id}")
+    public ResponseEntity<PostTemplatePackage> createPostTemplate(@RequestBody PostTemplatePackage templatePackage,
+     @PathVariable Long id){
+        log.info("Template Creation Initiated");
+        PostTemplatePackage t = postService.saveTemplate(templatePackage, id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(t);
+    }
+    
     @GetMapping("/{id}")
     public PostResponsePackage getPost(@PathVariable Long id){
         return postService.getPostResponsePackagebyId(id);

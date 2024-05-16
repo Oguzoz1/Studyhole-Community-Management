@@ -5,14 +5,15 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet } fr
 import { CommunityProfileComponent } from '../community-profile/community-profile.component';
 import { CommunityService } from '../community.service';
 import { CommunityModel } from '../community-model';
-import { PostModel } from '../../shared/post-model';
-import { PostService } from '../../shared/post.service';
+import { PostModel } from '../../post/post-model';
+import { PostService } from '../../post/post.service';
 import { VoteButtonComponent } from "../../shared/vote-button/vote-button.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faComments } from '@fortawesome/free-solid-svg-icons';
 import { SideBarComponent } from "../../shared/side-bar/side-bar.component";
 import { ListCommunityMembersComponent } from "../list-community-members/list-community-members.component";
 import { CommunityGuidelinesComponent } from "../community-guidelines/community-guidelines.component";
+import { PostTemplateComponent } from '../../post/post-template/post-template.component';
 
 @Component({
     selector: 'app-view-community',
@@ -32,7 +33,8 @@ import { CommunityGuidelinesComponent } from "../community-guidelines/community-
         FontAwesomeModule,
         SideBarComponent,
         ListCommunityMembersComponent,
-        CommunityGuidelinesComponent
+        CommunityGuidelinesComponent,
+        PostTemplateComponent
     ]
 })
 export class ViewCommunityComponent implements OnInit {
@@ -62,4 +64,7 @@ faComments = faComments;
     this.router.navigateByUrl('/view-post/' + id);
   }
     
+  navigateToPostTemplate(id: number): void{
+    this.router.navigateByUrl('/create-template/' + id);
+  }
 }

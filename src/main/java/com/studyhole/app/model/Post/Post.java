@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
 
+import org.hibernate.annotations.Type;
+
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.model.Vote.IVoteImpl;
@@ -21,9 +23,9 @@ public class Post implements IVoteImpl {
     private Long postId;
     private String postTitle;
     private String url;
-
-    @Lob 
-    private String description;
+    
+    private Long postTemplateId;
+    
     @Builder.Default
     private Integer voteCount = 0;
 

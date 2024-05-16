@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel } from '../shared/post-model';
-import { PostService } from '../shared/post.service';
+import { PostModel } from '../post/post-model';
+import { PostService } from '../post/post.service';
 import { HeaderComponent } from '../header/header.component';
 import { SignupComponent } from '../auth/signup/signup.component';
 import { LoginComponent } from '../auth/login/login.component';

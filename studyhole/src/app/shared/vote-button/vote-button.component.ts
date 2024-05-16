@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { PostModel } from '../post-model';
+import { PostModel } from '../../post/post-model';
 import { AuthService } from '../../auth/shared/auth.service';
-import { PostService } from '../post.service';
+import { PostService } from '../../post/post.service';
 import { ToastrService } from 'ngx-toastr';
 import { VotePayload } from './vote-payload';
 import { VoteType } from './vote-type';

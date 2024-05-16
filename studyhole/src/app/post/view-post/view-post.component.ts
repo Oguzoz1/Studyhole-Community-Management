@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel } from '../../shared/post-model';
+import { PostModel } from '../post-model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PostService } from '../../shared/post.service';
+import { PostService } from '../post.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommentPayload } from '../../comment/comment.payload';
 import { CommentService } from '../../comment/comment.service';

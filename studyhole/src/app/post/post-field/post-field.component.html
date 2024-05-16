@@ -1,0 +1,13 @@
+<div class="input-wrapper" [formGroup]="childForm!">
+    <div class="input-container">
+      <label for="fieldName">Field Name:</label>
+      <input type="text" id="fieldName" formControlName="fieldName">
+    </div>
+    <div class="input-container">
+      <label for="dataType">Data Type:</label>
+      <select id="dataType" formControlName="dataType">
+        <option *ngFor="let dataType of dataFieldOptions" [value]="dataType">{{ dataType }}</option>
+      </select>
+    </div>
+  </div>
+  

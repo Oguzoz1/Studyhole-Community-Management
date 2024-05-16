@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service;
 
 import com.studyhole.app.data.PostPackage;
 import com.studyhole.app.data.PostResponsePackage;
+import com.studyhole.app.data.PostTemplatePackage;
 import com.studyhole.app.mapper.PostMapper;
+import com.studyhole.app.mapper.PostTemplateMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.model.Post.Post;
 import com.studyhole.app.repository.PostRepository;
+import com.studyhole.app.repository.PostTemplateRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -24,7 +27,8 @@ public class PostService {
 
     private final PostMapper postMapper;
     private final PostRepository postRepository;
-    
+    private final PostTemplateRepository templateRepository;
+    private final PostTemplateMapper templateMapper;
     //Services
     private final StudyholeService studyholeService;
 
@@ -36,7 +40,14 @@ public class PostService {
 
         return postMapper.mapToDto(savePost);
     }
-
+    @Transactional
+    public PostTemplatePackage saveTemplate(PostTemplatePackage templatePackage,Long id) {
+        Community com = studyholeService.getCommunityById(id);
+        templatePackage.setOwnerCommunity(com);
+        var save = templateRepository.save(templateMapper.mapToData(templatePackage));
+    
+        return templateMapper.mapToPackage(save);
+    }
     @Transactional
     public PostResponsePackage getPostResponsePackagebyId(Long id) {
         Post post = postRepository.findById(id).orElseThrow(() -> new RuntimeException(id.toString() + "NOT FOUND"));
@@ -73,4 +84,5 @@ public class PostService {
 
         return post;
     }
+
 }

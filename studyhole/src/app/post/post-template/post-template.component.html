@@ -1,0 +1,13 @@
+<app-header></app-header>
+<div class="post-template" [formGroup] = "templateFormGroup">
+    <h2>Post Template</h2>
+    <div class="input-container">
+        <label for="templateName">Template Name:</label>
+        <input type="text" id="templateName" formControlName="templateName">
+      </div>    <a class="btnCommments" role="button" (click)="addField()">
+        <fa-icon [icon]="faPlus"></fa-icon>
+    </a>
+    <app-post-field
+    *ngFor="let childForm of getControls().controls" [childForm]="$any(childForm)"></app-post-field>
+    <button class="create-template-button" (click)="createTemplate()">Create Template</button>
+</div>

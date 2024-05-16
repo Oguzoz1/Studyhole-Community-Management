@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostModel } from '../../shared/post-model';
+import { PostModel } from '../../post/post-model';
 import { CommentPayload } from '../../comment/comment.payload';
 import { CommentService } from '../../comment/comment.service';
 import { ActivatedRoute } from '@angular/router';
-import { PostService } from '../../shared/post.service';
+import { PostService } from '../../post/post.service';
 import { NgFor, NgIf } from '@angular/common';
 import { PostTileComponent } from '../../post/post-tile/post-tile.component';
 import { HeaderComponent } from '../../header/header.component';

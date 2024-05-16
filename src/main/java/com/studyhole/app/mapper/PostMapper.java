@@ -30,7 +30,7 @@ public abstract class PostMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "ownerCommunity", source = "ownerCommunity")
     @Mapping(target = "user", source = "user")
-    @Mapping(target = "description", source = "postPackage.description")
+    @Mapping(target = "postTemplateId", source = "postPackage.postTemplateId")
     @Mapping(target = "voteCount", constant = "0")
     public abstract Post map(PostPackage postPackage, Community ownerCommunity, User user);
 

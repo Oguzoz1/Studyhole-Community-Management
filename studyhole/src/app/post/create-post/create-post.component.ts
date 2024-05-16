@@ -4,21 +4,22 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CreatePostPayload } from './create-post.payload';
 import { CommunityModel } from '../../community/community-model';
 import { Router } from '@angular/router';
-import { PostService } from '../../shared/post.service';
+import { PostService } from '../post.service';
 import { CommunityService } from '../../community/community.service';
 import { HeaderComponent } from '../../header/header.component';
+import { PostTemplateComponent } from "../post-template/post-template.component";
 
 
 @Component({
-  selector: 'app-create-post',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    HeaderComponent
-  ],
-  templateUrl: './create-post.component.html',
-  styleUrl: './create-post.component.css'
+    selector: 'app-create-post',
+    standalone: true,
+    templateUrl: './create-post.component.html',
+    styleUrl: './create-post.component.css',
+    imports: [
+        ReactiveFormsModule,
+        CommonModule,
+        HeaderComponent,
+    ]
 })
 export class CreatePostComponent implements OnInit {
 
