@@ -27,9 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PostController {
     private final PostService postService;
-    @PostMapping
-    public ResponseEntity<PostResponsePackage> createPost(@RequestBody PostPackage postPackage){
-        PostResponsePackage s = postService.save(postPackage);
+    @PostMapping("/create-post/{id}")
+    public ResponseEntity<PostResponsePackage> createPost(@RequestBody PostPackage postPackage, @PathVariable Long id){
+        PostResponsePackage s = postService.save(postPackage, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
     }
 
@@ -41,6 +41,16 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(t);
     }
     
+    @GetMapping("/template/{id}")
+    public PostTemplatePackage getPostTemplate(@PathVariable Long id){
+        return postService.getPostTemplatebyId(id);
+    }
+
+    @GetMapping("/template-by-community/{id}")
+    public List<PostTemplatePackage> getAllPostTemplateByCommunityId(@PathVariable Long id){
+        return postService.getAllPostTemplateByCommunityId(id);
+    }
+
     @GetMapping("/{id}")
     public PostResponsePackage getPost(@PathVariable Long id){
         return postService.getPostResponsePackagebyId(id);

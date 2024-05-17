@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-bar',
@@ -9,14 +9,17 @@ import { Router } from '@angular/router';
   styleUrl: './side-bar.component.css'
 })
 export class SideBarComponent implements OnInit {
+  communityId: number;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) { 
+    this.communityId = this.activatedRoute.snapshot.params['id'];
+  }
 
   ngOnInit() {
   }
 
   goToCreatePost() {
-    this.router.navigateByUrl('/create-post');
+    this.router.navigateByUrl('/choose-template/' + this.communityId);
   }
 
   goToCreateCommunity() {

@@ -10,6 +10,7 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { ListCommunitiesComponent } from './community/list-communities/list-communities.component';
 import { ViewCommunityComponent } from './community/view-community/view-community.component';
 import { PostTemplateComponent } from './post/post-template/post-template.component';
+import { ChooseTemplateComponent } from './post/choose-template/choose-template.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -18,7 +19,8 @@ export const routes: Routes = [
     {path: 'view-post/:id', component: ViewPostComponent},
     {path: 'user-profile/:name', component: UserProfileComponent},
     {path: 'list-communities', component: ListCommunitiesComponent},
-    {path: 'create-post', component: CreatePostComponent},
+    {path: 'choose-template/:id', component: ChooseTemplateComponent},
+    {path: 'create-post/:id', component: CreatePostComponent},
     {path: 'create-template/:id', component: PostTemplateComponent},
     {path: 'create-community', component: CreateCommunityComponent},
     {path: 'view-community/:id', component: ViewCommunityComponent},

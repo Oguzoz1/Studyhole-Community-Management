@@ -7,19 +7,19 @@ export class PostTemplateModel {
     dataFields?: DataField[];
 }
 export enum DataFields{
-    Text = "Text",
-    Image = "Image",
-    Date = "Date",
-    URL= "URL"
+    TextField = "TextField",
+    ImageField = "ImageField",
+    DateField = "DateField",
+    UrlField = "UrlField"
 }
 export class DataField{
     id?: number;
     name?: string;
+    type?: string;
 }
 
 export class TextField extends DataField{
     input?: string;
-    type?: string;
     constructor(){
         super();
         this.type = this.constructor.name;
@@ -27,7 +27,6 @@ export class TextField extends DataField{
 }
 export class UrlField extends DataField{
     input?: string;
-    type?: string;
     constructor(){
         super();
         this.type = this.constructor.name;
@@ -35,7 +34,6 @@ export class UrlField extends DataField{
 }
 export class DateField extends DataField{
     input?: Date;
-    type?: string;
     constructor(){
         super();
         this.type = this.constructor.name;
@@ -43,7 +41,6 @@ export class DateField extends DataField{
 }
 export class ImageField extends DataField{
     input?: File;
-    type?: string;
     constructor(){
         super();
         this.type = this.constructor.name;

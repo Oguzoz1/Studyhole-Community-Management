@@ -19,4 +19,5 @@ public class PostResponsePackage {
     private boolean upVote;
     private boolean downVote;
     private String username;
+    private Long postTemplateId;
 }

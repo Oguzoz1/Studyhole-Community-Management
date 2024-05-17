@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostPackage {
     private String communityName;
+    private Long communityId;
     private Long postId;
     @NotBlank(message = "Post Title can not be empty or null")
     private String postTitle;

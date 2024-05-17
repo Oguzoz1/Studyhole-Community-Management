@@ -40,6 +40,7 @@ public abstract class PostMapper {
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
+    @Mapping(target = "postTemplateId", source = "post.postTemplateId")
     public abstract PostResponsePackage mapToDto(Post post);
 
     Integer commentCount(Post post){

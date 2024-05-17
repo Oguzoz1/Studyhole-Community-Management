@@ -12,6 +12,7 @@ import com.studyhole.app.mapper.PostTemplateMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
 import com.studyhole.app.model.Post.Post;
+import com.studyhole.app.model.Post.PostTemplate;
 import com.studyhole.app.repository.PostRepository;
 import com.studyhole.app.repository.PostTemplateRepository;
 
@@ -32,8 +33,8 @@ public class PostService {
     //Services
     private final StudyholeService studyholeService;
 
-    public PostResponsePackage save(PostPackage postPackage) {
-        Community com = studyholeService.getCommunityByName(postPackage.getCommunityName());
+    public PostResponsePackage save(PostPackage postPackage, Long id) {
+        Community com = studyholeService.getCommunityById(id);
         User currentUser = studyholeService.getCurrentUser();
         Post post =  postMapper.map(postPackage, com, currentUser);
         var savePost = postRepository.save(post);
@@ -83,6 +84,19 @@ public class PostService {
         .orElseThrow(() -> new RuntimeException("Post with given ID not found"));
 
         return post;
+    }
+    @Transactional
+    public PostTemplatePackage getPostTemplatebyId(Long id) {
+        PostTemplate template = templateRepository.findById(id).orElseThrow(() -> new RuntimeException(id.toString() + "NOT FOUND"));
+
+        return templateMapper.mapToPackage(template);
+    }
+    @Transactional
+    public List<PostTemplatePackage> getAllPostTemplateByCommunityId(Long id) {
+        Community com = studyholeService.getCommunityById(id);
+        List<PostTemplate> template = templateRepository.findAllByOwnerCommunity(com);
+
+        return template.stream().map(templateMapper::mapToPackage).collect(toList());
     }
 
 }

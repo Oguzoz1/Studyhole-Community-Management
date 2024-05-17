@@ -18,8 +18,8 @@ export class PostService {
     return this.http.get<Array<PostModel>>(environment.baseUrl + '/api/posts/');
   }
 
-  createPost(postPayload: CreatePostPayload): Observable<PostModel> {
-    return this.http.post(environment.baseUrl + '/api/posts', postPayload);
+  createPost(postPayload: CreatePostPayload, id: number): Observable<PostModel> {
+    return this.http.post(environment.baseUrl + '/api/posts/create-post/' + id, postPayload);
   }
 
   createPostTemplate(postTemplate: PostTemplateModel, id: number) : Observable<PostTemplateModel>{
@@ -36,5 +36,9 @@ export class PostService {
   }
   getAllPostsByCommunity(id: number): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/community/' + id);
+  }
+  getAllPostTemplatebyCommunityId(id: number): Observable<PostTemplateModel[]>{
+    console.log("SENDING API");
+    return this.http.get<PostTemplateModel[]>(environment.baseUrl + '/api/posts/template-by-community/' + id);
   }
 }

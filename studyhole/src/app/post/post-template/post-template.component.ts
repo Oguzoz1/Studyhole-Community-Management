@@ -79,16 +79,16 @@ export class PostTemplateComponent implements OnInit{
       let newField: DataField | null = null;
             
       switch (dataType) {
-        case DataFields.Text:
+        case DataFields.TextField:
         newField = this.createTextField(fieldName);
         break;
-        case DataFields.Image:
+        case DataFields.ImageField:
         newField = this.createImageField(fieldName);
         break;
-        case DataFields.Date:
+        case DataFields.DateField:
         newField = this.createDateField(fieldName);
         break;
-        case DataFields.URL:
+        case DataFields.UrlField:
         newField = this.createUrlField(fieldName);
         break;
      }

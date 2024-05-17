@@ -1,13 +1,13 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreatePostPayload } from './create-post.payload';
-import { CommunityModel } from '../../community/community-model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../post.service';
-import { CommunityService } from '../../community/community.service';
 import { HeaderComponent } from '../../header/header.component';
-import { PostTemplateComponent } from "../post-template/post-template.component";
+import { ChooseTemplateService } from '../choose-template/choose-template.service';
+import { PostInputComponent } from '../post-input/post-input.component';
+import { DateField, ImageField, TextField, UrlField } from '../post-template-model';
 
 
 @Component({
@@ -19,44 +19,67 @@ import { PostTemplateComponent } from "../post-template/post-template.component"
         ReactiveFormsModule,
         CommonModule,
         HeaderComponent,
+        PostInputComponent,
+        NgFor
     ]
 })
 export class CreatePostComponent implements OnInit {
 
   createPostForm: FormGroup = new FormGroup({})
-  postPayload: CreatePostPayload;
-  communities?: Array<CommunityModel>;
+  postPayload?: CreatePostPayload;
+  communityId?: number;
 
   constructor(private router: Router, private postService: PostService,
-    private communityService: CommunityService) {
-    this.postPayload = {
-      postTitle: '',
-      description: '',
-      communityName: ''
-    }
+    private activatedRoute: ActivatedRoute, 
+    private chooseService: ChooseTemplateService) {
+    this.communityId = this.activatedRoute.snapshot.params['id'];
   }
 
   ngOnInit() {
+    this.postPayload = this.chooseService.getCurrentPayload();
+    console.log(this.postPayload);
+    
     this.createPostForm = new FormGroup({
       postTitle: new FormControl('', Validators.required),
-      communityName: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
+      fields: new FormArray([])
     });
-    this.communityService.getAllJoinedCommunities().subscribe({
-      next: (data) => {
-        this.communities = data;
-      }, error: (error) => {
-        console.error(error);
-      }
+    
+    this.postPayload.postTemplate?.dataFields?.forEach(datafield => {
+      this.getFieldsAsFormArray().push(this.addField());
     })
   }
-
+  getFieldsAsFormArray(){
+    return this.createPostForm.get('fields') as FormArray;
+  }
+  addField() : FormGroup{
+    return PostInputComponent.addField();
+  }
   createPost() {
-    this.postPayload.postTitle = this.createPostForm?.get('postTitle')?.value;
-    this.postPayload.communityName = this.createPostForm?.get('communityName')?.value;
-    this.postPayload.description = this.createPostForm?.get('description')?.value;
+    this.postPayload!.postTitle = this.postPayload?.postTitle;
+    this.postPayload!.communityId = this.communityId;
+    this.postPayload!.postTemplateId = this.postPayload?.postTemplate?.id;
+    
+    const fields = this.postPayload!.postTemplate!.dataFields!;
+    const forms = this.getFieldsAsFormArray().controls;
 
-    this.postService.createPost(this.postPayload).subscribe(
+    for(let i = 0; i < fields.length; i++){
+      let input = forms[i].get('input')?.value;
+      let field = fields[i]
+      console.log(field.type);
+      if (field.type == 'TextField'){
+        const textField = field as TextField;
+        textField.input! = input;
+      } else if (field.type  == 'DateField'){
+        console.error("NOT SET YET");
+      } else if (field.type  == 'UrlField'){
+        console.error("NOT SET YET");
+      }else if (field.type  == 'ImageField'){
+        console.error("NOT SET YET");
+      }
+
+    }
+
+    this.postService.createPost(this.postPayload!, this.communityId!).subscribe(
       {
         next: (data) => {
         this.router.navigateByUrl('/view-post/' + data.postId);
@@ -67,7 +90,7 @@ export class CreatePostComponent implements OnInit {
   }
 
   discardPost() {
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/view-community/' + this.communityId);
   }
 
 }
