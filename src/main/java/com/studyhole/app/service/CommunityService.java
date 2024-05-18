@@ -142,8 +142,8 @@ public class CommunityService  {
     }
 
     @Transactional
-    public List<CommunityPackage> getAllCommunitiesByCurrentUserId(){
-        User user = studyholeService.getCurrentUser();
+    public List<CommunityPackage> getAllCommunitiesByUsername(String username){
+        User user = studyholeService.getUserbyUsername(username);
 
         return communityRepository.findAllByMemberIdsContaining(user.getUserId()).stream().map(communityMapper::mapCommunityPackage)
         .collect(Collectors.toList());

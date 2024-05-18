@@ -5,6 +5,7 @@ import { CommunityModel } from './community-model';
 import { UserModel } from '../user/user-model';
 import { environment } from '../environment';
 import { ImageModel } from '../shared/image-upload-service';
+import { UserService } from '../user/user.service';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ import { ImageModel } from '../shared/image-upload-service';
 })
 export class CommunityService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private userSerivce: UserService) { }
 
   getAllCommunities(): Observable<Array<CommunityModel>>{
     return this.http.get<Array<CommunityModel>>(environment.baseUrl + '/api/community')
@@ -46,5 +47,8 @@ export class CommunityService {
 
   getAllJoinedCommunities(){
     return this.http.get<CommunityModel[]>(environment.baseUrl + '/api/community/member-communities')
+  }
+  getAllCommunitiesbyUsername(username: string): Observable<Array<CommunityModel>>{
+    return this.http.get<CommunityModel[]>(environment.baseUrl + '/api/community/member-communities/' + username);
   }
 }
