@@ -2,6 +2,7 @@ package com.studyhole.app.service;
 
 import java.util.List;
 
+import org.aspectj.weaver.ast.Instanceof;
 import org.springframework.stereotype.Service;
 
 import com.studyhole.app.data.PostPackage;
@@ -11,6 +12,8 @@ import com.studyhole.app.mapper.PostMapper;
 import com.studyhole.app.mapper.PostTemplateMapper;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.DataTypes.DataField;
+import com.studyhole.app.model.DataTypes.DateSField;
 import com.studyhole.app.model.Post.Post;
 import com.studyhole.app.model.Post.PostTemplate;
 import com.studyhole.app.repository.PostRepository;
@@ -18,12 +21,15 @@ import com.studyhole.app.repository.PostTemplateRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import static java.util.stream.Collectors.toList;
+
 
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class PostService {
 
     private final PostMapper postMapper;
@@ -33,12 +39,15 @@ public class PostService {
     //Services
     private final StudyholeService studyholeService;
 
+    @Transactional
     public PostResponsePackage save(PostPackage postPackage, Long id) {
         Community com = studyholeService.getCommunityById(id);
         User currentUser = studyholeService.getCurrentUser();
         Post post =  postMapper.map(postPackage, com, currentUser);
         var savePost = postRepository.save(post);
-
+        for (DataField data : savePost.getContent()) {
+            data.setPostId(post.getPostId());
+        }  
         return postMapper.mapToDto(savePost);
     }
     @Transactional
@@ -82,7 +91,6 @@ public class PostService {
     public Post getPostById(Long Id){
         Post post = postRepository.findById(Id)
         .orElseThrow(() -> new RuntimeException("Post with given ID not found"));
-
         return post;
     }
     @Transactional
@@ -97,6 +105,11 @@ public class PostService {
         List<PostTemplate> template = templateRepository.findAllByOwnerCommunity(com);
 
         return template.stream().map(templateMapper::mapToPackage).collect(toList());
+    }
+
+    public List<DataField> getContentbyPostId(Long id) {
+        Post post = getPostById(id);
+        return post.getContent();
     }
 
 }

@@ -32,7 +32,7 @@ public class PostTemplate {
 
     private String templateName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "communityId", referencedColumnName = "communityId")
     private Community ownerCommunity;
 

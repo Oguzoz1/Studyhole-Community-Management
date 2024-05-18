@@ -3,9 +3,12 @@ package com.studyhole.app.model.Post;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
+import com.studyhole.app.model.DataTypes.DataField;
 import com.studyhole.app.model.Vote.IVoteImpl;
 
 
@@ -23,17 +26,20 @@ public class Post implements IVoteImpl {
     private String url;
     
     @Lob
-    private String descrtiption;
+    private String description;
 
     private Long postTemplateId;
     
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<DataField> content = new ArrayList<>();
+
     @Builder.Default
     private Integer voteCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
-    private Instant createdDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "communityId", referencedColumnName = "communityId")

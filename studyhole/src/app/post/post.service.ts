@@ -4,7 +4,7 @@ import { PostModel } from './post-model';
 import { Observable } from 'rxjs';
 import { CreatePostPayload } from './create-post/create-post.payload';
 import { environment } from '../environment';
-import { PostTemplateModel } from './post-template-model';
+import { DataField, PostTemplateModel } from './post-template-model';
 // import { CreatePostPayload } from '../post/create-post/create-post.payload';
 
 @Injectable({
@@ -40,5 +40,11 @@ export class PostService {
   getAllPostTemplatebyCommunityId(id: number): Observable<PostTemplateModel[]>{
     console.log("SENDING API");
     return this.http.get<PostTemplateModel[]>(environment.baseUrl + '/api/posts/template-by-community/' + id);
+  }
+  getPostTemplatebyId(id: number): Observable<PostTemplateModel>{
+    return this.http.get<PostTemplateModel>(environment.baseUrl + '/api/posts/template/' + id);
+  }
+  getPostContentbyPostId(id: number): Observable<DataField[]>{
+    return this.http.get<DataField[]>(environment.baseUrl + '/api/posts/content/' + id);
   }
 }

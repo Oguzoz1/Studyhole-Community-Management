@@ -1,15 +1,29 @@
 <app-header></app-header>
-
 <div class="input-wrapper" [formGroup]="chooseForm!">
-  <div class="input-container">
-    <label for="title">Post Title:</label>
-    <input type="text" id="title" formControlName="title">
+    <div class="input-container">
+      <label for="templates">Choose a template:</label>
+      <select id="templates" formControlName="templates" (change)="onTemplateChange()">
+        <option value="">Default</option>
+        <option *ngFor="let template of postTemplate" [value]="template.id">{{ template.templateName }}</option>
+      </select>
+    </div>
+    
+    <div class="input-container">
+      <label for="title">Post Title:</label>
+      <input type="text" id="title" formControlName="title">
+    </div>
+    
+    <div *ngIf="isDescriptionVisible()">
+      <div class="input-container">
+        <label for="description">Description:</label>
+        <textarea id="description" formControlName="description" rows="5" style="width: 100%;"></textarea>
+      </div>
+    </div>
+  
+    <div class="input-container">
+        <button class="create-button" (click)="isDescriptionVisible() ? createPost() : navigateToCreatePost(communityId)">
+          {{ isDescriptionVisible() ? 'CREATE' : 'CHOOSE' }}
+        </button>
+      </div>
   </div>
-  <div class="input-container">
-    <label for="templates">Choose a template:</label>
-    <select id="templates" formControlName="templates">
-      <option *ngFor="let template of postTemplate" [value]="template.id">{{ template.templateName }}</option>
-    </select>
-    <button class="create-button" (click)="navigateToCreatePost(communityId)">CHOOSE</button>
-  </div>
-</div>
+  

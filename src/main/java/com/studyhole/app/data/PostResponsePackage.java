@@ -1,5 +1,10 @@
 package com.studyhole.app.data;
 
+import java.time.Instant;
+import java.util.List;
+
+import com.studyhole.app.model.DataTypes.DataField;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +25,5 @@ public class PostResponsePackage {
     private boolean downVote;
     private String username;
     private Long postTemplateId;
+    private List<DataField> content;
 }

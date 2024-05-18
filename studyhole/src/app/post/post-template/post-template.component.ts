@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../post.service';
 import { CommunityService } from '../../community/community.service';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataField, DataFields, DateField, ImageField, PostTemplateModel, TextField, UrlField } from '../post-template-model';
+import { DataField, DataFields, DateSField, ImageField, PostTemplateModel, TextField, UrlField } from '../post-template-model';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { PostFieldComponent } from "../post-field/post-field.component";
@@ -124,8 +124,8 @@ export class PostTemplateComponent implements OnInit{
       return imageField;
   }
 
-  private createDateField(fieldName: string): DateField {
-      const dateField = new DateField();
+  private createDateField(fieldName: string): DateSField {
+      const dateField = new DateSField();
       dateField.name = fieldName;
       return dateField;
   }

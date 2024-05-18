@@ -27,11 +27,12 @@ public abstract class PostMapper {
     @Autowired
     private UserService userService;
 
-    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "ownerCommunity", source = "ownerCommunity")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "postTemplateId", source = "postPackage.postTemplateId")
     @Mapping(target = "voteCount", constant = "0")
+    @Mapping(target = "description", source = "postPackage.description")
+    @Mapping(target = "content", source = "postPackage.content")
     public abstract Post map(PostPackage postPackage, Community ownerCommunity, User user);
 
     @Mapping(target = "postId", source = "postId")
@@ -41,6 +42,8 @@ public abstract class PostMapper {
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "postTemplateId", source = "post.postTemplateId")
+    @Mapping(target = "content", source = "post.content")
+    @Mapping(target = "description", source = "post.description")
     public abstract PostResponsePackage mapToDto(Post post);
 
     Integer commentCount(Post post){

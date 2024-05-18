@@ -12,6 +12,7 @@
                 <app-post-input
                   [childForm]="$any(getFieldsAsFormArray().controls[i])"
                   [fieldName]="field.name"
+                  [type]="field.type"
                 ></app-post-input>
               </ng-container>
             <span>

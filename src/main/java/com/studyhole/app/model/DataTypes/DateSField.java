@@ -7,14 +7,18 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
 @DiscriminatorValue("DATE")
-public class DateField extends DataField{
+@Getter
+@Setter
+public class DateSField extends DataField{
     @Lob
-    private Date input;
+    private String input;
 }

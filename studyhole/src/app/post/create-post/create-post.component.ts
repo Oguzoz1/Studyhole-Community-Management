@@ -7,7 +7,7 @@ import { PostService } from '../post.service';
 import { HeaderComponent } from '../../header/header.component';
 import { ChooseTemplateService } from '../choose-template/choose-template.service';
 import { PostInputComponent } from '../post-input/post-input.component';
-import { DateField, ImageField, TextField, UrlField } from '../post-template-model';
+import { DateSField, TextField } from '../post-template-model';
 
 
 @Component({
@@ -37,7 +37,6 @@ export class CreatePostComponent implements OnInit {
 
   ngOnInit() {
     this.postPayload = this.chooseService.getCurrentPayload();
-    console.log(this.postPayload);
     
     this.createPostForm = new FormGroup({
       postTitle: new FormControl('', Validators.required),
@@ -45,35 +44,45 @@ export class CreatePostComponent implements OnInit {
     });
     
     this.postPayload.postTemplate?.dataFields?.forEach(datafield => {
-      this.getFieldsAsFormArray().push(this.addField());
+      console.log("A");
+      this.getFieldsAsFormArray().push(PostInputComponent.addField(datafield!.type!));
     })
   }
   getFieldsAsFormArray(){
     return this.createPostForm.get('fields') as FormArray;
   }
-  addField() : FormGroup{
-    return PostInputComponent.addField();
-  }
+
   createPost() {
     this.postPayload!.postTitle = this.postPayload?.postTitle;
     this.postPayload!.communityId = this.communityId;
     this.postPayload!.postTemplateId = this.postPayload?.postTemplate?.id;
-    
+
     const fields = this.postPayload!.postTemplate!.dataFields!;
     const forms = this.getFieldsAsFormArray().controls;
+
+    if (this.postPayload?.content == null) {
+      this.postPayload!.content = []; 
+    }
 
     for(let i = 0; i < fields.length; i++){
       let input = forms[i].get('input')?.value;
       let field = fields[i]
       console.log(field.type);
       if (field.type == 'TextField'){
-        const textField = field as TextField;
+        const textField = new TextField();
+        textField.name = field.name;
         textField.input! = input;
-      } else if (field.type  == 'DateField'){
-        console.error("NOT SET YET");
+        this.postPayload?.content?.push(textField);
+      } else if (field.type  == 'DateSField'){
+        const dateField = new DateSField();
+        dateField.name = field.name;
+        dateField.input! = input;
+        this.postPayload?.content?.push(dateField);
+        console.log(this.postPayload?.content?.[i]);
       } else if (field.type  == 'UrlField'){
         console.error("NOT SET YET");
       }else if (field.type  == 'ImageField'){
+        //If its image.
         console.error("NOT SET YET");
       }
 
@@ -82,7 +91,8 @@ export class CreatePostComponent implements OnInit {
     this.postService.createPost(this.postPayload!, this.communityId!).subscribe(
       {
         next: (data) => {
-        this.router.navigateByUrl('/view-post/' + data.postId);
+        console.log(data);
+        this.router.navigateByUrl('/view-post/' + data.postId!);
       }, error: (error) => {
         console.error(error);
       }

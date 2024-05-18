@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studyhole.app.data.PostPackage;
 import com.studyhole.app.data.PostResponsePackage;
 import com.studyhole.app.data.PostTemplatePackage;
+import com.studyhole.app.model.DataTypes.DataField;
 import com.studyhole.app.service.PostService;
 
 import lombok.AllArgsConstructor;
@@ -46,6 +47,11 @@ public class PostController {
         return postService.getPostTemplatebyId(id);
     }
 
+    @GetMapping("/content/{id}")
+    public List<DataField> getContent(@PathVariable Long id){
+        return postService.getContentbyPostId(id);
+    }
+    
     @GetMapping("/template-by-community/{id}")
     public List<PostTemplatePackage> getAllPostTemplateByCommunityId(@PathVariable Long id){
         return postService.getAllPostTemplateByCommunityId(id);

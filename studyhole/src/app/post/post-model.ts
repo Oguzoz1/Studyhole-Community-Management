@@ -1,4 +1,4 @@
-import { PostTemplateModel } from "./post-template-model";
+import { DataField, PostTemplateModel } from "./post-template-model";
 
 export class PostModel {
     postId?: number;
@@ -13,4 +13,5 @@ export class PostModel {
     commentCount?: number;
     upVote?: boolean;
     downVote?: boolean;
+    content?: DataField[];
 }

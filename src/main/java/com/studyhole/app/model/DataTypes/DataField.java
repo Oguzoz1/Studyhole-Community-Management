@@ -27,13 +27,15 @@ import lombok.NoArgsConstructor;
     @JsonSubTypes.Type(value = TextField.class, name = "TextField"),
     @JsonSubTypes.Type(value = ImageField.class, name = "ImageField"),
     @JsonSubTypes.Type(value = UrlField.class, name = "UrlField"),
-    @JsonSubTypes.Type(value = DateField.class, name = "DateField"),
+    @JsonSubTypes.Type(value = DateSField.class, name = "DateSField"),
 
 })
 public class DataField {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
+
+    protected Long postId;
     
     @NotBlank(message = "Cannot be blank!")
     protected String name;

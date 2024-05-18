@@ -1,4 +1,4 @@
-import { PostTemplateModel } from "../post-template-model";
+import { DataField, PostTemplateModel } from "../post-template-model";
 
 export class CreatePostPayload {
     postTitle?: string;
@@ -6,4 +6,5 @@ export class CreatePostPayload {
     description?: string;
     postTemplate?: PostTemplateModel;
     postTemplateId?: number;
+    content?: DataField[];
 }

@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { tokenInterceptor } from './token.interceptor';
 import { errorInterceptor } from './error.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
@@ -19,6 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideToastr(),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(NgxWebstorageModule.forRoot()),
-    importProvidersFrom(FontAwesomeModule),
+    importProvidersFrom(FontAwesomeModule), provideAnimationsAsync(),
   ]
 };

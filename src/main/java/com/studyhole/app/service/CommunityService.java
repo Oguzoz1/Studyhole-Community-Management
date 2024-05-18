@@ -3,7 +3,6 @@ package com.studyhole.app.service;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.cfg.ContextAttributes.Impl;
 import com.studyhole.app.data.CommunityPackage;
 import com.studyhole.app.data.ImagePackage;
 import com.studyhole.app.data.UserPackage;
@@ -19,7 +18,6 @@ import com.studyhole.app.repository.ImageRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 import static java.util.stream.Collectors.toList;
 
@@ -32,7 +30,6 @@ import java.util.zip.DataFormatException;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class CommunityService  {
 
     private final CommunityMapper communityMapper;

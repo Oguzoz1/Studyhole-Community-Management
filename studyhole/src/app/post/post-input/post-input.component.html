@@ -2,8 +2,12 @@
     <div class="input-container">
       <label>{{fieldName}}</label>
     </div>
-    <div class="input-container">
-        <input type="text" id="input" formControlName="input">
+    <div class="input-container" *ngIf="type === 'DateSField'">
+        <input type="date" id="input" [formControl]="$any(childForm?.get('input'))">
       </div>
+      <div class="input-container" *ngIf="type !== 'DateSField'">
+        <input type="text" id="input" [formControl]="$any(childForm?.get('input'))">
+      </div>
+      
   </div>
   

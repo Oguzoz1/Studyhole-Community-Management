@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, contentChild } from '@angular/core';
 import { PostModel } from '../post-model';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
@@ -8,10 +8,11 @@ import { CommentService } from '../../comment/comment.service';
 import { CommunitySideBarComponent } from '../../community/community-side-bar/community-side-bar.component';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { CommunityService } from '../../community/community.service';
 import { CommunityModel } from '../../community/community-model';
+import { DataField, DateSField, PostTemplateModel, TextField } from '../post-template-model';
 
 @Component({
     selector: 'app-view-post',
@@ -24,13 +25,16 @@ import { CommunityModel } from '../../community/community-model';
         VoteButtonComponent,
         NgFor,
         HeaderComponent,
-        SideBarComponent
+        SideBarComponent,
+        NgIf,
+        DatePipe
     ]
 })
 export class ViewPostComponent implements OnInit {
   
   postId: number;
   post?: PostModel;
+  postTemplate?: PostTemplateModel;
   commentForm: FormGroup;
   commentPayload?: CommentPayload;
   comments?: CommentPayload[];
@@ -50,17 +54,13 @@ export class ViewPostComponent implements OnInit {
     
     ngOnInit(): void {
       this.getPostById();
-      this.getCommentsForPost();
     }
 
     goToCommunity(name: string): void {
       this.comServ.getCommunityByName(name).subscribe((com: CommunityModel) => {
         console.log(com.communityId);
-        // Handle Hibernate proxies
         com.ownerUsers?.forEach(user => {
-          // Access user properties to force initialization
           console.log(user.username);
-          // Add additional handling as needed
           this.router.navigateByUrl('view-community/' + com.communityId);
         });
     
@@ -73,19 +73,36 @@ export class ViewPostComponent implements OnInit {
       {
         next: () => {
           this.commentForm?.get('text')?.setValue('');
-          this.getCommentsForPost();
+          this.getCommentsForPost(this.postId);
         }, error: () =>{
           console.error("Error during commenting");
         }
       }
     )
   }
-
+  getField(field: DataField): string {
+    switch (field.type) {
+      case 'TextField':
+        const textField = field as TextField;
+        console.log(textField.input);
+        return textField.input!;
+      case 'DateSField':
+        const dateField = field as DateSField;
+        return dateField.input?.toString()!;
+      case 'UrlField':
+        return 'UrlField content';
+      case 'ImageField':
+        return 'ImageField content'; 
+      default:
+        return '';
+    }
+  }
   private getPostById() {
     this.postService.getPost(this.postId).subscribe(
       {
         next: (data) => {
           this.post = data;
+          this.getCommentsForPost(this.post.postId!);
         }, error: (error) => {
           console.error(error)
         }
@@ -93,8 +110,8 @@ export class ViewPostComponent implements OnInit {
     )
   }
 
-  private getCommentsForPost() {
-    this.commentService.getAllCommentsForPost(this.postId).subscribe(
+  private getCommentsForPost(id:number) {
+    this.commentService.getAllCommentsForPost(id).subscribe(
       {
         next: (data) => {
           this.comments = data;

@@ -32,8 +32,8 @@ export class UrlField extends DataField{
         this.type = this.constructor.name;
     }
 }
-export class DateField extends DataField{
-    input?: Date;
+export class DateSField extends DataField{
+    input?: string;
     constructor(){
         super();
         this.type = this.constructor.name;

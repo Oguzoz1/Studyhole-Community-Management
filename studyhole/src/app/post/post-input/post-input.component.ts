@@ -1,7 +1,6 @@
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { DataFields } from '../post-template-model';
 import { ImageComponent } from "../../shared/image/image.component";
 
 @Component({
@@ -13,19 +12,43 @@ import { ImageComponent } from "../../shared/image/image.component";
         NgIf,
         NgFor,
         ReactiveFormsModule,
-        ImageComponent
+        ImageComponent,
+        DatePipe
     ]
 })
 export class PostInputComponent {
 
   @Input() childForm: FormGroup | undefined;
   @Input() fieldName: string | undefined;
+  @Input() type: string | undefined; // Add this line
 
-  static addField() : FormGroup{
-    return new FormGroup(
-      {
-        input: new FormControl('', Validators.required)
-      }
-    )
+  static addField(type: string) : FormGroup{
+    switch (type) {
+      case 'TextField':
+        return new FormGroup({
+          input: new FormControl('', Validators.required)
+        });
+      case 'DateSField':
+        return new FormGroup({
+          input: new FormControl('', [Validators.required, PostInputComponent.dateValidator])
+        });
+      case 'UrlField':
+        return new FormGroup({
+          input: new FormControl('', Validators.required)
+        });
+      default:
+        return new FormGroup({
+          input: new FormControl('', Validators.required)
+        });
+    }
   }
+
+  static dateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const value = control.value;
+    const regex = /^\d{2}\/\d{2}\/\d{4}$/; 
+    if (value && !regex.test(value)) {
+        return { 'invalidDate': true };
+    }
+    return null;
+}
 }

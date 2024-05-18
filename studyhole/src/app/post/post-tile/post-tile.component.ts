@@ -5,9 +5,9 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { CommonModule } from '@angular/common';
 import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HeaderComponent } from '../../header/header.component';
 import { CommunityService } from '../../community/community.service';
 import { CommunityModel } from '../../community/community-model';
+import { PostTemplateModel } from '../post-template-model';
 
 @Component({
   selector: 'app-post-tile',
@@ -28,7 +28,7 @@ export class PostTileComponent implements OnInit {
 
   faComments = faComments;
   @Input() posts?: PostModel[];
-  
+
   constructor(private router: Router, private comServ: CommunityService) { }
 
   ngOnInit(): void {

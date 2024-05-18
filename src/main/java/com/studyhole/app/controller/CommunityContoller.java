@@ -2,7 +2,6 @@ package com.studyhole.app.controller;
 
 import static org.springframework.http.HttpStatus.OK;
 
-import java.io.IOError;
 import java.io.IOException;
 import java.util.List;
 import java.util.zip.DataFormatException;
