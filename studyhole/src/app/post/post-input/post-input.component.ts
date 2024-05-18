@@ -20,7 +20,7 @@ export class PostInputComponent {
 
   @Input() childForm: FormGroup | undefined;
   @Input() fieldName: string | undefined;
-  @Input() type: string | undefined; // Add this line
+  @Input() type: string | undefined;
 
   static addField(type: string) : FormGroup{
     switch (type) {
@@ -36,11 +36,20 @@ export class PostInputComponent {
         return new FormGroup({
           input: new FormControl('', Validators.required)
         });
+        case 'ImageField':
+        return new FormGroup({
+          input: new FormControl(null, Validators.required) 
+        });
       default:
         return new FormGroup({
           input: new FormControl('', Validators.required)
         });
     }
+  }
+  
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.childForm?.get('input')?.setValue(file);
   }
 
   static dateValidator(control: FormControl): { [key: string]: boolean } | null {

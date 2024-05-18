@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CreatePostPayload } from './create-post/create-post.payload';
 import { environment } from '../environment';
 import { DataField, PostTemplateModel } from './post-template-model';
+import { ImageModel } from '../shared/image-upload-service';
 // import { CreatePostPayload } from '../post/create-post/create-post.payload';
 
 @Injectable({
@@ -26,11 +27,13 @@ export class PostService {
     console.log(postTemplate.dataFields![0]);
     return this.http.post<PostTemplateModel>(environment.baseUrl + '/api/posts/template/' + id, postTemplate);
   }
-
   getPost(postId: number): Observable<PostModel> {
     return this.http.get<PostModel>(environment.baseUrl + '/api/posts/' + postId);
   }
-
+  
+  getDatafieldImagebyImageId(id: number){
+    return this.http.get<ImageModel>(environment.baseUrl + '/api/posts/datafield-image/' + id);
+  }
   getAllPostsByUser(name: string): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/user/' + name);
   }

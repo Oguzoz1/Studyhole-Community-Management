@@ -21,19 +21,25 @@
           <a class="post-title">{{post.postTitle}}</a>
           
           <!-- POST CONTENT -->
-          <div>
-            <p class="post-text" [innerHTML]="post.description"></p>
-            <ng-container *ngIf="post.content">
-              <ng-container *ngFor="let field of post.content">
-                <div *ngIf="field.type === 'TextField'">
-                  <!-- Render text -->
-                  <p>{{ field.name }}: {{ getField(field) }}</p>
-                </div>
-                <div *ngIf="field.type === 'DateSField'">
-                  <!-- Render text -->
-                  <p>{{ field.name }}: {{ getField(field) }}</p>
-                </div>
-              </ng-container>
+          <div *ngIf="post.content">
+            <ng-container *ngFor="let field of post.content">
+              <div *ngIf="field.type === 'TextField'">
+                <p>{{ field.name }}: {{ getField(field) }}</p>
+              </div>
+              <div *ngIf="field.type === 'DateSField'">
+                <p>{{ field.name }}: {{ getField(field) }}</p>
+              </div>
+              <div *ngIf="field.type === 'UrlField'">
+                <p>
+                  {{ field.name }}: 
+                  <a [href]="getField(field)" target="_blank">{{ getField(field) }}</a>
+                </p>
+              </div>
+              <div *ngIf="field.type === 'ImageField'">
+                <p>{{ field.name }}:</p>
+                <app-image-field [imageId]="getImageId(field)"></app-image-field>
+              </div>
+              
             </ng-container>
           </div>
 

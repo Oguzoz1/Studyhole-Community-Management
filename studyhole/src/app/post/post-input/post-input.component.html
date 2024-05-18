@@ -3,11 +3,16 @@
       <label>{{fieldName}}</label>
     </div>
     <div class="input-container" *ngIf="type === 'DateSField'">
-        <input type="date" id="input" [formControl]="$any(childForm?.get('input'))">
-      </div>
-      <div class="input-container" *ngIf="type !== 'DateSField'">
-        <input type="text" id="input" [formControl]="$any(childForm?.get('input'))">
-      </div>
-      
+      <input type="date" id="input" [formControl]="$any(childForm?.get('input'))">
+    </div>
+    <div class="input-container" *ngIf="type === 'TextField'">
+      <input type="text" id="input" [formControl]="$any(childForm?.get('input'))">
+    </div>
+    <div class="input-container" *ngIf="type === 'UrlField'">
+      <input type="url" id="input" [formControl]="$any(childForm?.get('input'))">
+    </div>
+    <div class="input-container" *ngIf="type === 'ImageField'">
+      <input type="file" accept="image/*" id="input" (change)="onFileSelected($event)">
+    </div>
   </div>
   

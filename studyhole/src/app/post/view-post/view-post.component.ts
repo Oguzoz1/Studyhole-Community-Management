@@ -8,11 +8,14 @@ import { CommentService } from '../../comment/comment.service';
 import { CommunitySideBarComponent } from '../../community/community-side-bar/community-side-bar.component';
 import { SideBarComponent } from '../../shared/side-bar/side-bar.component';
 import { VoteButtonComponent } from '../../shared/vote-button/vote-button.component';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { CommunityService } from '../../community/community.service';
 import { CommunityModel } from '../../community/community-model';
-import { DataField, DateSField, PostTemplateModel, TextField } from '../post-template-model';
+import { DataField, DateSField, ImageField, PostTemplateModel, TextField, UrlField } from '../post-template-model';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { ImageFieldComponent } from "../../image/image-field/image-field.component";
 
 @Component({
     selector: 'app-view-post',
@@ -27,7 +30,9 @@ import { DataField, DateSField, PostTemplateModel, TextField } from '../post-tem
         HeaderComponent,
         SideBarComponent,
         NgIf,
-        DatePipe
+        DatePipe,
+        CommonModule,
+        ImageFieldComponent
     ]
 })
 export class ViewPostComponent implements OnInit {
@@ -90,13 +95,30 @@ export class ViewPostComponent implements OnInit {
         const dateField = field as DateSField;
         return dateField.input?.toString()!;
       case 'UrlField':
-        return 'UrlField content';
+        const urlField = field as UrlField;
+        return this.ensureUrlProtocol(urlField.input?.toString()!);
       case 'ImageField':
         return 'ImageField content'; 
       default:
         return '';
     }
   }
+  getImageId(field: DataField): number | undefined {
+    if (field.type === 'ImageField') {
+      return (field as ImageField).input;
+    }
+    return undefined;
+  }
+  
+getImage(field: DataField): Observable<string> {
+  const image = field as ImageField;
+  
+  // Return the Observable returned by getDatafieldImagebyImageId
+  return this.postService.getDatafieldImagebyImageId(image.input!).pipe(
+    map(data => 'data:image/jpeg;base64,' + data?.imageData!)
+  );
+}
+
   private getPostById() {
     this.postService.getPost(this.postId).subscribe(
       {
@@ -110,6 +132,16 @@ export class ViewPostComponent implements OnInit {
     )
   }
 
+  private ensureUrlProtocol(url: string): string {
+    if (!url) {
+      return '';
+    }
+    // Check if the URL starts with http:// or https://
+    if (!/^https?:\/\//i.test(url)) {
+      return 'http://' + url;
+    }
+    return url;
+  }
   private getCommentsForPost(id:number) {
     this.commentService.getAllCommentsForPost(id).subscribe(
       {

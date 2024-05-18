@@ -1,6 +1,8 @@
 package com.studyhole.app.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.studyhole.app.data.ImagePackage;
 import com.studyhole.app.data.PostPackage;
 import com.studyhole.app.data.PostResponsePackage;
 import com.studyhole.app.data.PostTemplatePackage;
@@ -29,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PostController {
     private final PostService postService;
     @PostMapping("/create-post/{id}")
-    public ResponseEntity<PostResponsePackage> createPost(@RequestBody PostPackage postPackage, @PathVariable Long id){
+    public ResponseEntity<PostResponsePackage> createPost(@RequestBody PostPackage postPackage, @PathVariable Long id) throws IOException{
         PostResponsePackage s = postService.save(postPackage, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(s);
     }
@@ -41,7 +45,16 @@ public class PostController {
         PostTemplatePackage t = postService.saveTemplate(templatePackage, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(t);
     }
-    
+    @PostMapping("/upload-image/{id}")
+    public ResponseEntity<Void> uploadImage(@RequestBody MultipartFile file, @PathVariable Long id) throws IOException{
+        postService.uploadImageDataFieldbyDatafieldId(id, file);
+        log.info("UPLOAD CALLED");
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("/datafield-image/{id}")
+    public ResponseEntity<ImagePackage> getCommunityImage(@PathVariable Long id) throws IOException, DataFormatException{
+    return ResponseEntity.status(HttpStatus.OK).body(postService.getDataFieldImagebyImageId(id));
+    }
     @GetMapping("/template/{id}")
     public PostTemplatePackage getPostTemplate(@PathVariable Long id){
         return postService.getPostTemplatebyId(id);

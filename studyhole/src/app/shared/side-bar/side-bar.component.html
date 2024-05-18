@@ -1,13 +1,15 @@
 <div class="sidebar">
     <div class="sidebar-upper">
-        <img class="sidebar-image" src="https://cdn.iconscout.com/icon/free/png-512/free-study-1697926-1445400.png?f=webp&w=256">
-        <div style="text-align: center; font-size: 1em">Welcome to Studyhole!
-            Please proceed to find your awesome study hole!</div>
+      <img class="sidebar-image" src="https://cdn.iconscout.com/icon/free/png-512/free-study-1697926-1445400.png?f=webp&w=256">
+      <div style="text-align: center; font-size: 1em">Welcome to Studyhole!
+          Please proceed to find your awesome study hole!</div>
     </div>
     <div style="text-align: center">
-        <button class="btnCreatePost" (click)="goToCreatePost()">Create Post</button>
+      <button class="btnCreatePost" (click)="showCreatePostButton()  ? goToCreatePost(): goToViewCommunities()">
+        {{showCreatePostButton() ? 'Create Post' : 'View Communities'}}</button>
     </div>
     <div style="text-align: center">
-        <button class="btnCreateCommunity" (click)="goToCreateCommunity()">Create Community</button>
+      <button class="btnCreateCommunity" (click)="goToCreateCommunity()">Create Community</button>
     </div>
-</div>
+  </div>
+  

@@ -16,6 +16,12 @@ export class ImageUploadService {
     return this.http.post(`${environment.baseUrl}/api/community/upload-image/${id}`, formData);
   }
 
+  postDatafieldUploadbyImageId(file: File, id:number){
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${environment.baseUrl}/api/posts/upload-image/${id}`, formData);
+  }
+
 }
 
 export class ImageModel{
@@ -23,4 +29,7 @@ export class ImageModel{
   name?: string;
   type?: string;
   imageData?: Uint8Array;
+}
+export class ImageResponsePackage{
+  input?: FormData;
 }

@@ -21,6 +21,7 @@ export class ImageUploadComponentComponent {
 
   uploadFile() {
  if (this.selectedFile && this.communityModel && this.communityModel.communityId) {
+    console.log(this.selectedFile);
     this.imageUploadService.communityUpload(this.selectedFile, this.communityModel.communityId)
       .subscribe(
         () => console.log("Upload successful"),

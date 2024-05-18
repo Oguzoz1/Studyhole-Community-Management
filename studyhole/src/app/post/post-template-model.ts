@@ -1,4 +1,5 @@
 import { CommunityModel } from "../community/community-model";
+import { ImageResponsePackage } from "../shared/image-upload-service";
 
 export class PostTemplateModel {
     id?: number;
@@ -40,7 +41,10 @@ export class DateSField extends DataField{
     }
 }
 export class ImageField extends DataField{
-    input?: File;
+    file?: File;
+    //image id to be set in backend
+    input?: number;
+    
     constructor(){
         super();
         this.type = this.constructor.name;
