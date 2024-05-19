@@ -6,6 +6,7 @@ import { CommunityService } from '../community.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../auth/shared/auth.service';
 import { HeaderComponent } from '../../header/header.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-community',
@@ -27,7 +28,7 @@ export class CreateCommunityComponent implements OnInit {
   isPublic: boolean = true; 
 
   constructor(private router: Router, private communityService: CommunityService
-    , private authService: AuthService) {
+    , private authService: AuthService, private toastr: ToastrService) {
 
     this.createCommunityForm = new FormGroup({
       title: new FormControl('', Validators.required),
@@ -67,7 +68,7 @@ export class CreateCommunityComponent implements OnInit {
           this.router.navigateByUrl('/list-communities')
         }, 
         error: (error) =>{
-          console.error(error);
+          this.toastr.error('Community Name is already Taken')
         }
       }
     )

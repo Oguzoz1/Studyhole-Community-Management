@@ -31,7 +31,10 @@
     height: 40px; 
     font-size: 16px; 
 }
-
+.subscribe-button.applied {
+    background-color: orange; 
+    color: white;
+  }
 .leave-button {
     background-color: #b70c0c;
     border-color: #0079D3;

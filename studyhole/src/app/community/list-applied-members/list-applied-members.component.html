@@ -1,0 +1,11 @@
+<div class="community-guidelines-box">
+    <div class="title">Applications</div>
+    <hr>
+    <ul class="member-list">
+      <li *ngFor="let member of members">
+        <a routerLink="/user-profile/{{member.username}}">{{member.username}}</a>
+        <button class="accept-button" (click)="acceptMember(member)">Accept</button>
+      </li>
+    </ul>
+  </div>
+  

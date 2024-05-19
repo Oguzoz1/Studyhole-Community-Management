@@ -51,4 +51,11 @@ export class CommunityService {
   getAllCommunitiesbyUsername(username: string): Observable<Array<CommunityModel>>{
     return this.http.get<CommunityModel[]>(environment.baseUrl + '/api/community/member-communities/' + username);
   }
+
+  getAllAppliedMembers(communityId: number): Observable<UserModel[]>{
+    return this.http.get<UserModel[]>(environment.baseUrl + '/api/community/applied-members/' + communityId);
+  }
+  acceptMember(communityId: number, user: UserModel){
+    return this.http.post<UserModel>(environment.baseUrl + '/api/community/accept-member/' + communityId, user);
+  }
 }

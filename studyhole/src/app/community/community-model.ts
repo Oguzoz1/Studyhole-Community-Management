@@ -10,6 +10,7 @@ export class CommunityModel{
     publicCommunity?: boolean;
     ownerUsers?: UserModel[];
     memberIds?: number[];
+    appliedMemberIds?: number[];
     image?: ImageModel;
     guidelines?: string;
 }

@@ -48,6 +48,9 @@ public class CommunityService  {
         if (communityPackage.getMemberIds() == null){
             communityPackage.setMemberIds(new ArrayList<>());
         }
+        if (communityPackage.getAppliedMemberIds() == null){
+            communityPackage.setAppliedMemberIds(new ArrayList<>());
+        }
         communityPackage.getMemberIds().add(userdetails.getUserId());
         
         var save = communityRepository.save(communityMapper.mapDtoToCommunity(communityPackage,Collections.singleton(userdetails)));
@@ -140,7 +143,18 @@ public class CommunityService  {
 
         return members;
     }
+    @Transactional
+    public List<UserPackage> getAllAppliedMembersByCommunityId(Long id){
+        Community com = getCommunityById(id);
 
+        List<User> users = studyholeService.getAllUsersByIds(com.getAppliedMemberIds());
+
+        List<UserPackage> members = users.stream()
+        .map(user -> userMapper.mapToPackage(user))
+        .collect(Collectors.toList());
+
+        return members;
+    }
     @Transactional
     public List<CommunityPackage> getAllCommunitiesByUsername(String username){
         User user = studyholeService.getUserbyUsername(username);
@@ -170,5 +184,14 @@ public class CommunityService  {
         imPack.setImageData(ImageUtils.decompressImage(imPack.getImageData()));
 
         return imPack;
+    }
+
+    @Transactional
+    public void AcceptUserToCommunity(Long communityId, Long userId){
+        User user = studyholeService.getUserByUserId(userId);
+        CommunityPackage com = communityMapper.mapCommunityPackage(studyholeService.getCommunityById(communityId));
+        com.getAppliedMemberIds().remove(user.getUserId());
+        update(com);
+        studyholeService.subscribeUserToCommunity(user, com);
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
+import com.studyhole.app.data.CommunityPackage;
+import com.studyhole.app.mapper.CommunityMapper;
 import com.studyhole.app.model.Comment;
 import com.studyhole.app.model.Community;
 import com.studyhole.app.model.User;
@@ -34,6 +36,7 @@ public class StudyholeService {
     private final PostRepository postRepository;
     private final CommunityRepository communityRepository;
     private final CommentRepository commentRepository;
+    private final CommunityMapper communityMapper;
 
     //USER 
     @Transactional
@@ -100,6 +103,20 @@ public class StudyholeService {
         .orElseThrow(() -> new RuntimeException("COMMENT NOT FOUND"));
 
         return comment;
+    }
+
+    
+    @Transactional
+    public void subscribeUserToCommunity(User user, CommunityPackage comPackage){
+        Community com = communityMapper.mapDtoToCommunity(comPackage);
+        if (user.getSubscribedCommunityIds().stream().anyMatch(c -> c.equals(com.getCommunityId()))) {
+            return;
+        }
+        com.getMemberIds().add(user.getUserId());
+        user.getSubscribedCommunityIds().add(com.getCommunityId());
+    
+        userRepository.save(user);
+        communityRepository.save(com);
     }
 
 }

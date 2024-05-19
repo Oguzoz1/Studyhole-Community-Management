@@ -18,7 +18,17 @@ export class UserService {
   leaveCommunity(communityId: number): Observable<void>{
     return this.http.post<void>(environment.baseUrl + "/api/user/leave-community/" + communityId, null);
   }
-  getCurrentUserPackage(){
+  applyCommunity(communityId: number): Observable<void>{
+    return this.http.post<void>(environment.baseUrl + '/api/user/apply/' + communityId, null);
+  }
+  removeApplication(communityId: number): Observable<void>{
+    return this.http.post<void>(environment.baseUrl + '/api/user/remove-application/' + communityId, null);
+  } 
+   getCurrentUserPackage(){
     return this.http.get<UserModel>(environment.baseUrl + '/api/user/' + this.authService.getUserName())
   }
+  getAllUsers(): Observable<UserModel[]>{
+    return this.http.get<UserModel[]>(environment.baseUrl + '/api/user/');
+  }
+  
 }

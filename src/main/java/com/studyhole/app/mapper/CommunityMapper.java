@@ -18,6 +18,7 @@ public interface CommunityMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "publicCommunity", source = "community.publicCommunity")
     @Mapping(target = "memberIds", source = "community.memberIds")
+    @Mapping(target = "appliedMemberIds", source = "community.appliedMemberIds")
     @Mapping(target = "image", source = "community.communityImage")
     @Mapping(target = "guidelines", source = "community.guidelines")
     CommunityPackage mapCommunityPackage(Community community);
@@ -31,6 +32,7 @@ public interface CommunityMapper {
     @Mapping(target = "ownerUsers", source = "ownerUsers")
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     @Mapping(target = "memberIds", source = "communityPackage.memberIds")
+    @Mapping(target = "appliedMemberIds", source = "communityPackage.appliedMemberIds")
     @Mapping(target = "communityImage", source = "communityPackage.image")
     @Mapping(target = "guidelines", source = "communityPackage.guidelines")
     Community mapDtoToCommunity(CommunityPackage communityPackage, Set<User> ownerUsers);
@@ -40,6 +42,7 @@ public interface CommunityMapper {
     @Mapping(target = "ownerUsers", source = "ownerUsers")
     @Mapping(target = "publicCommunity", source = "communityPackage.publicCommunity")
     @Mapping(target = "memberIds", source = "communityPackage.memberIds")
+    @Mapping(target = "appliedMemberIds", source = "communityPackage.appliedMemberIds")
     @Mapping(target = "communityImage", source = "communityPackage.image")
     @Mapping(target = "guidelines", source = "communityPackage.guidelines")
     Community mapDtoToCommunity(CommunityPackage communityPackage);

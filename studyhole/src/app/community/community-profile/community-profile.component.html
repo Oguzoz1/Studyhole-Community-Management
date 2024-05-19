@@ -13,12 +13,38 @@
             <div class="community-profile-description"><strong>Description:</strong> {{ community?.description }}</div>
             <div class="community-profile-usercount">Subscribers: {{ userCount }}</div>
             <div class="community-profile-buttons">
-                <button class="subscribe-button" *ngIf="isPublic && !isSubscribed" (click)="subscribeToCommunity()">Subscribe</button>
-                
-                <button class="leave-button" *ngIf="isSubscribed" (click)="leaveCommunity()">Leave</button>
-                
-                <button class="subscribe-button" *ngIf="!isPublic && !isSubscribed" (click)="applyToCommunity()">Apply</button>
-            </div>
+                <button
+                  class="subscribe-button"
+                  *ngIf="isPublic && !isSubscribed"
+                  (click)="subscribeToCommunity()"
+                >
+                  Subscribe
+                </button>
+              
+                <button
+                  class="leave-button"
+                  *ngIf="isSubscribed"
+                  (click)="leaveCommunity()"
+                >
+                  Leave
+                </button>
+              
+                <button
+                  class="subscribe-button"
+                  *ngIf="!isPublic && !isSubscribed && !isAppliedAlready()"
+                  (click)="applyToCommunity()"
+                >
+                  Apply
+                </button>
+              
+                <button
+                  class="subscribe-button applied"
+                  *ngIf="!isPublic && !isSubscribed && isAppliedAlready()"
+                  (click)="removeApplication()"
+                >
+                  Cancel
+                </button>
+              </div>
             
             <div class="community-profile-public">
                 <div *ngIf="isPublic; else privateContent">Public Community</div>

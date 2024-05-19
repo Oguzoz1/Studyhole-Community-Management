@@ -51,6 +51,11 @@ public class Community {
     @Column(name = "user_id")
     private List<Long> memberIds;
 
+    @ElementCollection
+    @CollectionTable(name = "community_applied_members")
+    @Column(name = "user_id")
+    private List<Long> appliedMemberIds;
+
     @OneToOne(fetch = FetchType.EAGER)
     private Image communityImage;
 }

@@ -88,5 +88,13 @@ public class CommunityContoller {
     public ResponseEntity<List<UserPackage>> getMemberUsers(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllMembersByCommunityId(id));
     }
-
+    @GetMapping("/applied-members/{id}")
+    public ResponseEntity<List<UserPackage>> getAllAppliedMembers(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllAppliedMembersByCommunityId(id));
+    }
+    @PostMapping("/accept-member/{id}")
+    public ResponseEntity<Void> acceptMember(@PathVariable Long id, @RequestBody UserPackage userPackage){
+        communityService.AcceptUserToCommunity(id, userPackage.getUserId());
+        return new ResponseEntity<>(OK);
+    }
 }

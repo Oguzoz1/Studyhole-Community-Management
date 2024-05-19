@@ -25,6 +25,7 @@ public class CommunityPackage {
     private Set<User> ownerUsers;
     private boolean publicCommunity;
     private List<Long> memberIds;
+    private List<Long> appliedMemberIds;
     private Image image;
     private String guidelines;
 }

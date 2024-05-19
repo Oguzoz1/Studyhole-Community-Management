@@ -43,6 +43,12 @@ public class UserService {
         orElseThrow(() -> new UsernameNotFoundException(username + "does not exist!")));
         return user;
     }
+    
+    @Transactional
+    public List<UserPackage> getAllUsers(){
+        List<User> users = userRepository.findAll();
+        return users.stream().map(user -> userMapper.mapToPackage(user)).collect(toList());
+    }
 
     @Transactional
     public UserPackage getUserbyUsername(String username){
@@ -100,6 +106,27 @@ public class UserService {
     
         userRepository.save(user);
         communityRepository.save(com);
+    }
+
+    @Transactional
+    public void applyToCommunity(CommunityPackage communityPackage){
+        User user = getCurrentUser();
+        Community com = communityMapper.mapDtoToCommunity(communityPackage);
+        if (user.getSubscribedCommunityIds().stream().anyMatch(c -> c.equals(com.getCommunityId()))) {
+            log.error("ALREADY EXISTS");
+            return;
+        }
+        com.getAppliedMemberIds().add(user.getUserId());
+        communityRepository.save(com);
+    }
+    @Transactional
+    public void removeApplication(CommunityPackage communityPackage){
+        User user = getCurrentUser();
+        Community com = communityMapper.mapDtoToCommunity(communityPackage);
+        if (com.getAppliedMemberIds().stream().anyMatch(c -> c.equals(user.getUserId()))) {
+            com.getAppliedMemberIds().remove(user.getUserId());
+            communityRepository.save(com);
+        }
     }
 
     @Transactional

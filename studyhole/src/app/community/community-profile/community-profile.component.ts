@@ -32,7 +32,7 @@ import { ImageModel } from '../../shared/image-upload-service';
     ]
 })
 export class CommunityProfileComponent implements OnInit{
-
+  
   communityId: number;
   community?: CommunityModel;
   currentUser?: UserModel;
@@ -40,52 +40,56 @@ export class CommunityProfileComponent implements OnInit{
   userCount?: number;
   isPublic?: boolean;
   communityImage?: ImageModel;
-
+  
   showUploadButtons: boolean = false;
-
+  
   constructor(private activatedRoute: ActivatedRoute, private comService: CommunityService,
     private usService: UserService, private toastr: ToastrService) {
       this.communityId = this.activatedRoute.snapshot.params['id'];
-  }
-
-  ngOnInit(): void {
-    forkJoin({
-      community: this.getCommunityById(),
-      currentUser: this.setCurrentUser(),
-
-    }).subscribe(
-      ({community, currentUser}) =>{
-        this.community = community;
-        this.currentUser = currentUser;
-        this.isSubscribed = this.CurrentUserSubscribed();
-        this.userCount = this.getUserCount();
-        this.isPublic = community.publicCommunity;
-        console.log(this.currentUser?.username);
-        console.log(this.isSubscribed);
-      }
-    )
-  }
-
-  private getCommunityById() {
-    return this.comService.getCommunityById(this.communityId);
-  }
-
-  public subscribeToCommunity(){
-    this.usService.subscribeCommunity(this.communityId).subscribe(
-      {
-        next: () => {
-          this.toastr.success('Subscribed!')
-          this.isSubscribed = true;
-        },
-        error: (error) => {
-          console.error(error);
-          this.toastr.error('Something went wrong!')
+    }
+    
+    ngOnInit(): void {
+      forkJoin({
+        community: this.getCommunityById(),
+        currentUser: this.setCurrentUser(),
+        
+      }).subscribe(
+        ({community, currentUser}) =>{
+          this.community = community;
+          this.currentUser = currentUser;
+          this.isSubscribed = this.CurrentUserSubscribed();
+          this.userCount = this.getUserCount();
+          this.isPublic = community.publicCommunity;
+          console.log(this.currentUser?.username);
+          console.log(this.isSubscribed);
         }
-      }
-    )
-  }
-
+      )
+    }
+    
+    private getCommunityById() {
+      return this.comService.getCommunityById(this.communityId);
+    }
+    
+    public subscribeToCommunity(){
+      this.usService.subscribeCommunity(this.communityId).subscribe(
+        {
+          next: () => {
+            this.toastr.success('Subscribed!')
+            this.isSubscribed = true;
+          },
+          error: (error) => {
+            console.error(error);
+            this.toastr.error('Something went wrong!')
+          }
+        }
+      )
+    }
+    
   public leaveCommunity(){
+    if(this.isOwnerUser()){
+      this.toastr.error("Owner can not leave!")
+      return;
+    }
     this.usService.leaveCommunity(this.communityId).subscribe(
       {
         next: () => {
@@ -113,7 +117,7 @@ export class CommunityProfileComponent implements OnInit{
   setCurrentUser(): Observable<UserModel>{
     return this.usService.getCurrentUserPackage();
   }
-
+  
   public CurrentUserSubscribed(): boolean{
     if (this.community?.memberIds?.includes(this.currentUser?.userId!, 0)){
       return true;
@@ -122,10 +126,36 @@ export class CommunityProfileComponent implements OnInit{
   }
   
   applyToCommunity() {
-    throw new Error('Method not implemented.');
+    this.usService.applyCommunity(this.communityId).subscribe(
+      {
+        next: (data) => {
+          this.toastr.success('Applied!');
+        },error: (error) =>{
+          this.toastr.error('Something went wrong! Please try again later!');
+        }
+      }
+    )
+  }
+  
+  removeApplication() {
+    this.usService.removeApplication(this.communityId).subscribe(
+      {
+        next: (data) => {
+          this.toastr.success('Application CANCELLED!');
+        },error: (error) =>{
+          this.toastr.error('Something went wrong! Please try again later!');
+        }
+      }
+    )
+  }
+  isAppliedAlready(): boolean{
+    if(this.community!.appliedMemberIds?.includes(this.currentUser!.userId!)){
+      return true;
     }
+    else return false;
+  }
 
-    toggleSettings() {
+  toggleSettings() {
       this.showUploadButtons = !this.showUploadButtons;
   }
 }
