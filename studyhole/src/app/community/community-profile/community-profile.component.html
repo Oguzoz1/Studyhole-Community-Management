@@ -12,7 +12,7 @@
             <div class="community-title">at/{{ community?.name }}</div>
             <div class="community-profile-description"><strong>Description:</strong> {{ community?.description }}</div>
             <div class="community-profile-usercount">Subscribers: {{ userCount }}</div>
-            <div class="community-profile-buttons">
+            <div *ngIf="community" class="community-profile-buttons">
                 <button
                   class="subscribe-button"
                   *ngIf="isPublic && !isSubscribed"

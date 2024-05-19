@@ -1,7 +1,7 @@
   <div class="community-guidelines-box">
     <div class="title">List of Members</div>
     <hr>
-    <ul class="member-list">
+    <ul *ngIf="members" class="member-list">
       <li *ngFor="let member of members">
         <a routerLink="/user-profile/{{member.username}}">{{member.username}}</a>
       </li>

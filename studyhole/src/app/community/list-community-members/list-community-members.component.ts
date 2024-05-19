@@ -26,19 +26,18 @@ export class ListCommunityMembersComponent implements OnInit{
     this.communityId = this.activatedRoute.snapshot.params['id'];
   }
   ngOnInit(): void {
-    forkJoin({
-      members: this.getMembers()
-
-    }).subscribe(
-      ({members}) =>{
-        this.members = members;
-        console.log(this.members);
-      }
-    )
+    this.getMembers();
   }
 
 
-  getMembers(): Observable<UserModel[]>{
-    return this.comService.getMemberUsers(this.communityId);
+  getMembers(){
+    this.comService.getMemberUsers(this.communityId).subscribe(
+      {
+        next:(data) => {
+          this.members = data;
+          console.log(this.members);
+        }
+      }
+    )
   }
 }

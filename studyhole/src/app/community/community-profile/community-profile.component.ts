@@ -40,7 +40,7 @@ export class CommunityProfileComponent implements OnInit{
   userCount?: number;
   isPublic?: boolean;
   communityImage?: ImageModel;
-  
+  appliedMemberIds?: number[];
   showUploadButtons: boolean = false;
   
   constructor(private activatedRoute: ActivatedRoute, private comService: CommunityService,
@@ -60,6 +60,7 @@ export class CommunityProfileComponent implements OnInit{
           this.isSubscribed = this.CurrentUserSubscribed();
           this.userCount = this.getUserCount();
           this.isPublic = community.publicCommunity;
+          this.appliedMemberIds = community.appliedMemberIds;
           console.log(this.currentUser?.username);
           console.log(this.isSubscribed);
         }
@@ -103,6 +104,7 @@ export class CommunityProfileComponent implements OnInit{
       }
     )
   }
+
   isOwnerUser(): boolean{
     if (this.community?.ownerUsers?.some(ownerUser => ownerUser.userId == this.currentUser?.userId!))
       return true
