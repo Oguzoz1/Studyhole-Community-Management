@@ -1,11 +1,13 @@
 <header>
-    <div class="header-content" routerLink="/">
-        <div class="logo-container">
+    <div class="header-content d-flex justify-content-between align-items-center" routerLink="/">
+        <div class="logo-container d-flex align-items-center">
             <img src="https://www.svgrepo.com/show/428085/study-university.svg" alt="Studyhole Logo">
             <span class="title">Studyhole</span>
         </div>
-        <div class="flex-grow-1"></div> 
-        <div class="float-right"> 
+        <div class="search-container" style="width: 400px;">
+            <app-search-bar></app-search-bar>
+          </div>
+        <div class="user-options d-flex align-items-center">
             <div *ngIf="isLoggedIn" ngbDropdown class="float-right">
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu-right">
                     <button (click)="goToUserProfile()" ngbDropdownItem>Profile</button>
@@ -16,9 +18,7 @@
                     {{username}}
                 </button>
             </div>            
-        </div>
-        <div class="float-right"> 
-            <div *ngIf="!isLoggedIn">
+            <div *ngIf="!isLoggedIn" class="ml-3">
                 <a routerLink="/sign-up" class="sign-up mr-2">Sign up</a>
                 <a routerLink="/login" class="login mr-2">Login</a>
             </div>

@@ -1,36 +1,39 @@
+
 header {
-    background-color: #FFF; /* Set background color */
-    padding: 5px; /* Add padding for spacing */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Align items vertically */
-}
-
-.header-content {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space out items */
-    align-items: center; /* Align items vertically */
-}
-
+    background-color: #FFF;
+    padding: 5px;
+    display: flex; 
+    flex-direction: column;
+    height: auto; 
+  }
+  
+  .header-content {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    height: 100%;
+  }
+  
 .logo-container {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Align items vertically */
+    display: flex; 
+    align-items: center; 
     cursor: pointer;
 }
 
 .logo-container img {
-    width: 60px; /* Set the width of the logo */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 10px; /* Add margin for spacing */
+    width: 60px; 
+    height: auto;
+    margin-right: 10px;
 }
 
 .title {
-    font-size: 30px; /* Set the font size of the title */
-    font-weight: bold; /* Make the title bold */
+    font-size: 30px; 
+    font-weight: bold; 
 }
 
 .line {
-    border-bottom: 3px solid black; /* Add a border at the bottom */
-    width: 100%; /* Set the width to fill the container */
+    border-bottom: 3px solid black; 
+    width: 100%; 
 }
 
 .community-icon-svg{
@@ -124,3 +127,8 @@ header {
     max-height: 24px;
     max-width: 24px;
 }
+.search-container {
+    flex-grow: 2;
+    max-width: 800px; 
+  }
+  

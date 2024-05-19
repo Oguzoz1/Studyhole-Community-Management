@@ -3,20 +3,22 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { CommonModule, NgIf } from '@angular/common';
 import { AuthService } from '../auth/shared/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { SearchBarComponent } from "../search/search-bar/search-bar.component";
 
 
 @Component({
-  selector: 'app-header',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    NgIf
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
+    selector: 'app-header',
+    standalone: true,
+    templateUrl: './header.component.html',
+    styleUrl: './header.component.css',
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        RouterLink,
+        RouterLinkActive,
+        NgIf,
+        SearchBarComponent
+    ]
 })
 export class HeaderComponent implements OnInit{
   isLoggedIn?: boolean;

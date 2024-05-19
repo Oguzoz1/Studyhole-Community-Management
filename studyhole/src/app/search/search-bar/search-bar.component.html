@@ -1,0 +1,32 @@
+<div class="col-md-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex">
+          <input
+            type="text"
+            class="form-control mr-2"
+            placeholder="Search"
+            [(ngModel)]="searchQuery"
+            (input)="filterItems()"
+          />
+          <select class="form-control" [(ngModel)]="filterOption" (change)="filterItems()">
+            <option value="communities">Communities</option>
+            <option value="users">Users</option>
+          </select>
+        </div>
+        <ul class="list-group list-group-flush" *ngIf="searchQuery.trim()">
+          <ng-container *ngIf="filterOption === 'communities'">
+            <li *ngFor="let community of filteredCommunities" class="list-group-item">
+              <a [routerLink]="'/view-community/' + community.communityId">{{ community.name }}</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="filterOption === 'users'">
+            <li *ngFor="let user of filteredUsers" class="list-group-item">
+              <a [routerLink]="'/user-profile/' + user.username">{{ user.username }}</a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
