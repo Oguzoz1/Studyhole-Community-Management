@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: studyhole
+      MYSQL_PASSWORD: 123456
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  spring-boot-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/studyhole
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      JWT_PUBLIC_KEY: classpath:app.pub
+      JWT_PRIVATE_KEY: classpath:app.key
+      JWT_EXPIRATION_TIME: 900000
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+
+  angular-app:
+    build:
+      context: ./studyhole
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+
+volumes:
+  mysql-data:
