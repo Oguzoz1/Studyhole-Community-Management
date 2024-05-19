@@ -34,6 +34,7 @@ export class PostService {
   getDatafieldImagebyImageId(id: number){
     return this.http.get<ImageModel>(environment.baseUrl + '/api/posts/datafield-image/' + id);
   }
+  
   getAllPostsByUser(name: string): Observable<PostModel[]> {
     return this.http.get<PostModel[]>(environment.baseUrl + '/api/posts/user/' + name);
   }

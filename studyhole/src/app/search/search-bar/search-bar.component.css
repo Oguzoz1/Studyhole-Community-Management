@@ -29,8 +29,3 @@
   .form-control {
     width: 100%; 
   }
-  .search-container {
-    flex-grow: 2;
-    max-width: 800px; 
-  }
-  

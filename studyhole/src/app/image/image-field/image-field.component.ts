@@ -25,7 +25,7 @@ export class ImageFieldComponent {
 
   ngOnInit(): void {
     forkJoin({
-      imageModel: this.getCommunityImage()
+      imageModel: this.getDatafieldImagebyImageId()
     }).subscribe(
       ({imageModel}) =>{
         this.imageDataUrl = 'data:image/jpeg;base64,' + imageModel?.imageData!;
@@ -33,7 +33,7 @@ export class ImageFieldComponent {
     )
   }
 
-  getCommunityImage() : Observable<ImageModel>{
+  getDatafieldImagebyImageId() : Observable<ImageModel>{
     return this.postService.getDatafieldImagebyImageId(this.imageId!);
   }
 
