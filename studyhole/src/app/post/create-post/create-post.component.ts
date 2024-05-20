@@ -130,6 +130,7 @@ export class CreatePostComponent implements OnInit {
             );
           }
         }
+        this.router.navigateByUrl('/view-post/' + data.postId!);
       }, error: (error) => {
         console.error(error);
       }
