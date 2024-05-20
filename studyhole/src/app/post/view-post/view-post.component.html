@@ -21,6 +21,9 @@
           <a class="post-title">{{post.postTitle}}</a>
           
           <!-- POST CONTENT -->
+          <div *ngIf="post.description">
+            <p> {{post.description}} </p>
+          </div>
           <div *ngIf="post.content">
             <ng-container *ngFor="let field of post.content">
               <div *ngIf="field.type === 'TextField'">
