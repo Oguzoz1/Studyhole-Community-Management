@@ -39,8 +39,9 @@ Backend: Spring Boot 3 with Mysql
 Built Tool: Maven
 Frontend: Angular 17
 ### Screen Shots
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/c19376b3-637c-4e7f-bd90-3354387b8cf0)
-![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/af7703d9-988d-42bc-a9a1-9be0b6d8b875)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/086f7843-d390-4532-a8c8-35fa1bc512a2)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/26852b00-472c-411c-9fd4-711475a1f61e)
+![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/d7f18561-cfb6-4138-87d8-afba09d7ab7e)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/ba969440-8d85-4d98-adb2-dc7879757a51)
 ![image](https://github.com/Oguzoz1/swe573-ozuer/assets/96492946/04ca23fb-b463-4ee6-aaf3-f18026d8a642)
 
