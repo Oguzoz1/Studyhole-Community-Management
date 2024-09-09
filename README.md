@@ -1,4 +1,5 @@
 ## Project Profile
+[PROJECT WIKI](https://github.com/Oguzoz1/Studyhole-Community-Management/wiki)
 ### Frameworks and Database: 
 - Spring Boot 3
 - Angular 17
